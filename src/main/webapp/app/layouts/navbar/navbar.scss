@@ -4,6 +4,19 @@
 /* ==========================================================================
 Navbar
 ========================================================================== */
+.navbar-collapse collapse{
+  background-color : #FCE181;
+}
+
+.dropdown-menu{
+  background-color: #FCE181;
+  border-style: solid;
+  border-color: black;
+}
+
+.nav-link{
+  widows: 33.33%;
+}
 
 .navbar-version {
   font-size: 0.65em;
@@ -15,28 +28,43 @@ Navbar
   width: 1.75em;
 }
 
-.navbar {
-  padding: 0.2rem 1rem;
+.div-nav-bar{
+  width:100%
+}
 
+.navbar-nav {
   ul.navbar-nav {
     .nav-item {
-      margin-left: 0.5em;
+      list-style-type: none; 
+      text-align: center; 
     }
   }
 
   a.nav-link {
     font-weight: 400;
+    color : black;
+    font-size: 24px;
+    text-align: center;
   }
+}
+
+.dropdown-item{
+  font-size:20px;
 }
 
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .logo-img {
-  height: 45px;
-  width: 45px;
-  display: inline-block;
-  vertical-align: middle;
-  background: url('../../../content/images/logo-jhipster.png') no-repeat center center;
-  background-size: contain;
+  width: 100%;  
 }
+
+.centerStuff{
+  text-align: center;
+}
+
+
+// #navbarResponsive { text-align: center; }
+// #navbarResponsive li {list-style: none; display: inline-block; }
+// #navbarResponsive a {color: #3297FD; display: block; font-family:arial; text-transform: uppercase; font-weight: bold; margin: 0; padding: 9px 18px 9px; text-decoration: none; }
+#navbarResponsive a:hover {background-color: #fef9C7; color: black; }
