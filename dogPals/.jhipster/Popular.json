@@ -1,0 +1,37 @@
+{
+  "name": "Popular",
+  "fields": [
+    {
+      "fieldName": "likeOrDislike",
+      "fieldType": "LikeDisLike",
+      "fieldValues": "Like,Dislike",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "userId",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "training",
+      "otherEntityRelationshipName": "popular",
+      "relationshipName": "training",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210328181850",
+  "entityTableName": "popular",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["dogPals", "DogPalsTraining"],
+  "microserviceName": "DogPalsTraining"
+}

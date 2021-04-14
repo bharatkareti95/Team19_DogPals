@@ -1,0 +1,25 @@
+{
+  "dogPalsApp": {
+    "information": {
+      "home": {
+        "title": "Information",
+        "createLabel": "Créer un nouveau Information",
+        "createOrEditLabel": "Créer ou éditer un Information",
+        "search": "Recherche pour Information",
+        "notFound": "Aucun Information trouvé"
+      },
+      "created": "Un nouveau Information a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Information avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Information avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Information {{ id }} ?"
+      },
+      "detail": {
+        "title": "Information"
+      },
+      "title": "Title",
+      "content": "Content",
+      "date": "Date"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-popular-heading" jhiTranslate="dogPalsApp.dogPalsTrainingPopular.home.createOrEditLabel">Create or edit a Popular</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingPopular.likeOrDislike" for="field_likeOrDislike">Like Or Dislike</label>
+                    <select class="form-control" name="likeOrDislike" formControlName="likeOrDislike" id="field_likeOrDislike">
+                        <option value="Like">{{ 'dogPalsApp.LikeDisLike.Like' | translate }}</option>
+                        <option value="Dislike">{{ 'dogPalsApp.LikeDisLike.Dislike' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('likeOrDislike')!.invalid && (editForm.get('likeOrDislike')!.dirty || editForm.get('likeOrDislike')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('likeOrDislike')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingPopular.userId" for="field_userId">User Id</label>
+                    <input type="number" class="form-control" name="userId" id="field_userId"
+                           formControlName="userId"/>
+                    <div *ngIf="editForm.get('userId')!.invalid && (editForm.get('userId')!.dirty || editForm.get('userId')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('userId')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('userId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingPopular.training" for="field_training">Training</label>
+                    <select class="form-control" id="field_training" name="training" formControlName="trainingId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="trainingOption.id" *ngFor="let trainingOption of trainings; trackBy: trackById">{{ trainingOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

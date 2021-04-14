@@ -1,0 +1,37 @@
+{
+  "name": "Booking",
+  "fields": [
+    {
+      "fieldName": "price",
+      "fieldType": "Long",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "BookStatus",
+      "fieldValues": "Booked,No,Pending,Cancelled",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "training",
+      "otherEntityRelationshipName": "booking",
+      "relationshipName": "training",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210328181750",
+  "entityTableName": "booking",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["dogPals", "DogPalsTraining"],
+  "microserviceName": "DogPalsTraining"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Forum",
+  "fields": [
+    {
+      "fieldName": "topic",
+      "fieldType": "ListTopic",
+      "fieldValues": "Toys,Diet,Adoption,Tricks,Training,Health",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "forum",
+      "relationshipName": "post"
+    }
+  ],
+  "changelogDate": "20210328182050",
+  "entityTableName": "forum",
+  "dto": "mapstruct",
+  "pagination": "pagination",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["dogPals", "DogPalsForum"],
+  "microserviceName": "DogPalsForum",
+  "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,39 @@
+{
+  "dogPalsApp": {
+    "dogPalsTrainingTraining": {
+      "home": {
+        "title": "Trainings",
+        "createLabel": "Créer un nouveau Training",
+        "createOrEditLabel": "Créer ou éditer un Training",
+        "search": "Recherche pour Training",
+        "notFound": "Aucun Training trouvé"
+      },
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Training {{ id }} ?"
+      },
+      "detail": {
+        "title": "Training"
+      },
+      "title": "Title",
+      "date": "Date",
+      "details": "Details",
+      "location": "Location",
+      "price": "Price",
+      "agency": "Agency",
+      "bookingStatus": "Booking Status",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "slot": "Slot",
+      "popularity": "Popularity",
+      "popular": "Popular",
+      "booking": "Booking"
+    }
+  },
+  "dogPalsTrainingApp": {
+    "dogPalsTrainingTraining": {
+      "created": "Un nouveau Training a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Training avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Training avec l'identifiant {{ param }} a été supprimé"
+    }
+  }
+}

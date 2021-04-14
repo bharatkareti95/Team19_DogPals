@@ -1,0 +1,28 @@
+{
+  "dogPalsApp": {
+    "dogPalsForumForum": {
+      "home": {
+        "title": "Forums",
+        "createLabel": "Create a new Forum",
+        "createOrEditLabel": "Create or edit a Forum",
+        "search": "Search for Forum",
+        "notFound": "No Forums found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Forum {{ id }}?"
+      },
+      "detail": {
+        "title": "Forum"
+      },
+      "topic": "Topic",
+      "post": "Post"
+    }
+  },
+  "dogPalsForumApp": {
+    "dogPalsForumForum": {
+      "created": "A new Forum is created with identifier {{ param }}",
+      "updated": "A Forum is updated with identifier {{ param }}",
+      "deleted": "A Forum is deleted with identifier {{ param }}"
+    }
+  }
+}

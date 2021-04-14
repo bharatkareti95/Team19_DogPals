@@ -1,0 +1,29 @@
+{
+  "dogPalsApp": {
+    "dogPalsForumRating": {
+      "home": {
+        "title": "Ratings",
+        "createLabel": "Create a new Rating",
+        "createOrEditLabel": "Create or edit a Rating",
+        "search": "Search for Rating",
+        "notFound": "No Ratings found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Rating {{ id }}?"
+      },
+      "detail": {
+        "title": "Rating"
+      },
+      "likeOrDislike": "Like Or Dislike",
+      "relatedPostId": "Related Post Id",
+      "post": "Post"
+    }
+  },
+  "dogPalsForumApp": {
+    "dogPalsForumRating": {
+      "created": "A new Rating is created with identifier {{ param }}",
+      "updated": "A Rating is updated with identifier {{ param }}",
+      "deleted": "A Rating is deleted with identifier {{ param }}"
+    }
+  }
+}

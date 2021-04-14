@@ -1,0 +1,29 @@
+{
+  "dogPalsApp": {
+    "dogPalsTrainingBooking": {
+      "home": {
+        "title": "Bookings",
+        "createLabel": "Créer un nouveau Booking",
+        "createOrEditLabel": "Créer ou éditer un Booking",
+        "search": "Recherche pour Booking",
+        "notFound": "Aucun Booking trouvé"
+      },
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Booking {{ id }} ?"
+      },
+      "detail": {
+        "title": "Booking"
+      },
+      "price": "Price",
+      "status": "Status",
+      "training": "Training"
+    }
+  },
+  "dogPalsTrainingApp": {
+    "dogPalsTrainingBooking": {
+      "created": "Un nouveau Booking a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Booking avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Booking avec l'identifiant {{ param }} a été supprimé"
+    }
+  }
+}

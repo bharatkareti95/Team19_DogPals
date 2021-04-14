@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="popular">
+            <h2><span jhiTranslate="dogPalsApp.dogPalsTrainingPopular.detail.title">Popular</span> {{ popular.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingPopular.likeOrDislike">Like Or Dislike</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'dogPalsApp.LikeDisLike.' + popular.likeOrDislike }}">{{ popular.likeOrDislike }}</span>
+                </dd>
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingPopular.userId">User Id</span></dt>
+                <dd>
+                    <span>{{ popular.userId }}</span>
+                </dd>
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingPopular.training">Training</span></dt>
+                <dd>
+                    <div *ngIf="popular.trainingId">
+                        <a [routerLink]="['/training', popular.trainingId, 'view']">{{ popular.trainingId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/popular', popular.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+{
+  "name": "Post",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "comment"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "rating",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "rating"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "forum",
+      "otherEntityRelationshipName": "post",
+      "relationshipName": "forum",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210328182150",
+  "entityTableName": "post",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceClass",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": ["dogPals", "DogPalsForum"],
+  "microserviceName": "DogPalsForum"
+}

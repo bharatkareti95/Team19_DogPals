@@ -1,0 +1,109 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.home.title">Trainings</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-training" [routerLink]="['/training/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="dogPalsApp.dogPalsTrainingTraining.home.createLabel">
+            Create a new Training
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'dogPalsApp.dogPalsTrainingTraining.home.search' | translate }}">
+
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon icon="search"></fa-icon>
+                    </button>
+
+                    <button class="input-group-append btn btn-danger" (click)="search('')" *ngIf="currentSearch">
+                        <fa-icon icon="trash-alt"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trainings?.length === 0">
+        <span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.home.notFound">No trainings found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trainings && trainings.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="title"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.title">Title</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="date"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.date">Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="details"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.details">Details</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="location"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.location">Location</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="price"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.price">Price</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="agency"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.agency">Agency</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bookingStatus"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.bookingStatus">Booking Status</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.startTime">Start Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="endTime"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.endTime">End Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="slot"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.slot">Slot</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="popularity"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.popularity">Popularity</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let training of trainings ;trackBy: trackId">
+                    <td><a [routerLink]="['/training', training.id, 'view']">{{ training.id }}</a></td>
+                    <td>{{ training.title }}</td>
+                    <td>{{ training.date | date:'medium' }}</td>
+                    <td>{{ training.details }}</td>
+                    <td>{{ training.location }}</td>
+                    <td>{{ training.price }}</td>
+                    <td>{{ training.agency }}</td>
+                    <td>{{ training.bookingStatus }}</td>
+                    <td>{{ training.startTime | date:'medium' }}</td>
+                    <td>{{ training.endTime | date:'medium' }}</td>
+                    <td>{{ training.slot }}</td>
+                    <td>{{ training.popularity }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/training', training.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/training', training.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(training)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="trainings && trainings.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

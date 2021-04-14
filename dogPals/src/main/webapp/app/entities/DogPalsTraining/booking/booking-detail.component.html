@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="booking">
+            <h2><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.detail.title">Booking</span> {{ booking.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.price">Price</span></dt>
+                <dd>
+                    <span>{{ booking.price }}</span>
+                </dd>
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'dogPalsApp.BookStatus.' + booking.status }}">{{ booking.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training">Training</span></dt>
+                <dd>
+                    <div *ngIf="booking.trainingId">
+                        <a [routerLink]="['/training', booking.trainingId, 'view']">{{ booking.trainingId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/booking', booking.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

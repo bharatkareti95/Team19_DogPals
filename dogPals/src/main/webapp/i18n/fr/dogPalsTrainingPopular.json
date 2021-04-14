@@ -1,0 +1,29 @@
+{
+  "dogPalsApp": {
+    "dogPalsTrainingPopular": {
+      "home": {
+        "title": "Populars",
+        "createLabel": "Créer un nouveau Popular",
+        "createOrEditLabel": "Créer ou éditer un Popular",
+        "search": "Recherche pour Popular",
+        "notFound": "Aucun Popular trouvé"
+      },
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Popular {{ id }} ?"
+      },
+      "detail": {
+        "title": "Popular"
+      },
+      "likeOrDislike": "Like Or Dislike",
+      "userId": "User Id",
+      "training": "Training"
+    }
+  },
+  "dogPalsTrainingApp": {
+    "dogPalsTrainingPopular": {
+      "created": "Un nouveau Popular a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Popular avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Popular avec l'identifiant {{ param }} a été supprimé"
+    }
+  }
+}

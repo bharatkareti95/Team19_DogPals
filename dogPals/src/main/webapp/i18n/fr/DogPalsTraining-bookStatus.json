@@ -1,0 +1,11 @@
+{
+  "dogPalsApp": {
+    "BookStatus": {
+      "null": "",
+      "Booked": "Booked",
+      "No": "No",
+      "Pending": "Pending",
+      "Cancelled": "Cancelled"
+    }
+  }
+}
