@@ -20,7 +20,8 @@ pipeline {
 		stage(‘Build Jar file’) {
             steps {
                 script {
-                    sh mvn clean install
+                    sh 'cd dogPals'
+                    sh 'mvn clean install'
                 }
             }
         }
