@@ -7,7 +7,7 @@ pipeline {
        maven "Maven"
     }
     stages {
-		stage(‘Checkout source code’) {
+		stage('Checkout source code') {
             steps {
                 script {
                     checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], 
@@ -17,7 +17,7 @@ pipeline {
             }
         }
         //Building jar file to test if code changes are ok and there is no error
-		stage(‘Build Jar file’) {
+		stage('Build Jar file') {
             steps {
                 script {
                     sh 'cd dogPals'
@@ -30,12 +30,12 @@ pipeline {
         stage('Building our image') {
             steps {
                 script {
-                    dockerImage = docker.build “bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
+                    dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
                 }
             }
         }
         //Push our newly created image to dockerhub
-        stage(‘Push image to Dockerhub’) {
+        stage('Push image to Dockerhub') {
             steps {
                 script {
                     //Assume the Docker Hub registry by passing an empty string as the first parameter
@@ -46,7 +46,7 @@ pipeline {
             }
         }
         //Retrieve image from dockerhub and run container on port 9000 with the same name as the image
-        stage(‘Run the application’) {
+        stage('Run the application') {
             steps {
                 script {
                     docker run -p 9000:9000 --name dogpals_presentation_container$BUILD_NUMBER dogpals_presentation:$BUILD_NUMBER
