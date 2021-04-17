@@ -17,7 +17,7 @@ pipeline {
             }
         }
         //Building jar file to test if code changes are ok and there is no error
-		stage('Build Jar file') {
+		stage('Build front end Jar file') {
             steps {
                 script {
                     sh 'cd dogPals'
