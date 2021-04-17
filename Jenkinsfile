@@ -2,10 +2,7 @@ pipeline {
     agent {
         label 'docker'
     }
-	tools
-    {
-       maven "Maven"
-    }
+	
     stages {
 		stage('Checkout source code') {
             steps {
@@ -54,10 +51,12 @@ pipeline {
                 }
             }
         }
-        post{	//No matter success or failure will send information, youid is the group id sent
+        
+      }
+    }
+    post{	//No matter success or failure will send information, youid is the group id sent
             always{
                 telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:-204739069)
             }
-      }
     }
 }
