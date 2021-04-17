@@ -52,7 +52,7 @@ pipeline {
             }
         }
         
-      }
+      
     }
     post{	//No matter success or failure will send information, youid is the group id sent
             always{
