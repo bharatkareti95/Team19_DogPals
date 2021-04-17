@@ -49,7 +49,7 @@ pipeline {
         stage('Run the application') {
             steps {
                 script {
-                    docker run -p 9000:9000 --name dogpals_presentation_container$BUILD_NUMBER dogpals_presentation:$BUILD_NUMBER
+                    sh 'docker run -p 9000:9000 --name dogpals_presentation_container$BUILD_NUMBER dogpals_presentation:$BUILD_NUMBER'
                     
                 }
             }
