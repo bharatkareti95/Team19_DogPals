@@ -1,11 +1,11 @@
 pipeline {
     agent any
     
-    tools { 
-        //Configuring what tools to use according to what was saved in Jenkins
-        'Maven "Maven 3.6.0"'
-        'JDK "jdk8"'
-    }
+    // tools { 
+    //     //Configuring what tools to use according to what was saved in Jenkins
+    //     Maven 'Maven 3.6.0'
+    //     JDK 'jdk8'
+    // }
 
     stages {
 		// stage('Checkout source code') {
