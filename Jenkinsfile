@@ -4,7 +4,7 @@ pipeline {
     tools { 
         //Configuring what tools to use according to what was saved in Jenkins
         'Maven "Maven 3.6.0"'
-        'JDK "jdk8"''
+        'JDK "jdk8"'
     }
 
     stages {
