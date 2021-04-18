@@ -18,20 +18,20 @@ pipeline {
         //     }
         // }
         //Building jar file to test if code changes are ok and there is no error
-		stage('Build front end Jar file') {
-            steps {
-                dir('dogPals') {
-                    sh "pwd"
-                    sh 'mvn clean install'
-                    }
+		// stage('Build front end Jar file') {
+        //     steps {
+        //         dir('dogPals') {
+        //             sh "pwd"
+        //             sh 'mvn clean install'
+        //             }
 
-                // script {
+        //         // script {
                 
-                //     //sh 'cd dogPals'
-                //     sh 'mvn clean install'
-                // }
-            }
-        }
+        //         //     //sh 'cd dogPals'
+        //         //     sh 'mvn clean install'
+        //         // }
+        //     }
+        // }
         //Build docker image from blueprint in dockerfile. The arguments passed are: dockerRepoName:imageTag
         //Note that imageTag has build number variable for release management
         stage('Building our image') {
@@ -63,10 +63,5 @@ pipeline {
         }
         
       
-    }
-    post{	//No matter success or failure will send information, youid is the group id sent
-            always{
-                telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:-204739069)
-            }
     }
 }
