@@ -36,9 +36,13 @@ pipeline {
         //Note that imageTag has build number variable for release management
         stage('Building our image') {
             steps {
-                script {
-                    dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
-                }
+                dir('dogPals') {
+                     sh "pwd"
+                     dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
+                     }
+                // script {
+                //     dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
+                // }
             }
         }
         //Push our newly created image to dockerhub
