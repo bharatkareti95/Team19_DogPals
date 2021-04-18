@@ -21,3 +21,6 @@ DogPals aims to provide dog owners a platform where they can connect with certif
 2. src\main\resources\application-dev.yml for devlopment environment
                           
 --->
+
+## Connection details
+(http://52.74.130.214:8080 "Jenkins Page")
