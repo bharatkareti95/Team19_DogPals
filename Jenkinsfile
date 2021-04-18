@@ -20,8 +20,13 @@ pipeline {
         //Building jar file to test if code changes are ok and there is no error
 		stage('Build front end Jar file') {
             steps {
+                dir("/var/lib/jenkins/workspace/DogPals/dogPals") {
+                    sh "pwd"
+                    }
+
                 script {
-                    sh 'cd dogPals'
+                
+                    //sh 'cd dogPals'
                     sh 'mvn clean install'
                 }
             }
