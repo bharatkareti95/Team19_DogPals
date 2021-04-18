@@ -2,15 +2,15 @@ pipeline {
     agent any
     
     stages {
-		stage('Checkout source code') {
-            steps {
-                script {
-                    checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], 
-                    userRemoteConfigs: [[credentialsId: 'github-credentials', 
-                    url: 'https://github.com/bharatkareti95/Team19_DogPals.git']]])
-                }
-            }
-        }
+		// stage('Checkout source code') {
+        //     steps {
+        //         script {
+        //             checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], 
+        //             userRemoteConfigs: [[credentialsId: 'github-credentials', 
+        //             url: 'https://github.com/bharatkareti95/Team19_DogPals.git']]])
+        //         }
+        //     }
+        // }
         //Building jar file to test if code changes are ok and there is no error
 		stage('Build front end Jar file') {
             steps {
