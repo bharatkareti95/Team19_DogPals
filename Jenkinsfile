@@ -20,15 +20,16 @@ pipeline {
         //Building jar file to test if code changes are ok and there is no error
 		stage('Build front end Jar file') {
             steps {
-                dir("dogPals") {
+                dir('dogPals') {
                     sh "pwd"
+                    sh 'mvn clean install'
                     }
 
-                script {
+                // script {
                 
-                    //sh 'cd dogPals'
-                    sh 'mvn clean install'
-                }
+                //     //sh 'cd dogPals'
+                //     sh 'mvn clean install'
+                // }
             }
         }
         //Build docker image from blueprint in dockerfile. The arguments passed are: dockerRepoName:imageTag
