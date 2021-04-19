@@ -40,7 +40,7 @@ pipeline {
             steps {
                 dir('dogPals') {
                      sh "pwd"
-                     sh "dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER""
+                     dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
                 
                 }
                 // script {
