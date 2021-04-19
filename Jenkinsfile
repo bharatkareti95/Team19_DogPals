@@ -41,10 +41,8 @@ pipeline {
                 dir('dogPals') {
                      sh "pwd"
                      dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
-                // script {
-                //     dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
-                // }
-                     }
+                
+                }
                 // script {
                 //     dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
                 // }
@@ -66,6 +64,8 @@ pipeline {
             steps {
                 script {
                     sh 'docker run -p 9000:9000 --name dogpals_presentation_container$BUILD_NUMBER dogpals_presentation:$BUILD_NUMBER'
-                    
-                }
+                } 
+            }  
+        } 
+    }
 }
