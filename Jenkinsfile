@@ -46,7 +46,7 @@ pipeline {
                 dir('dogPals') {
                      sh "pwd"
                      script {
-			System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "864000");
+			System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
                         dockerImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
                      }
                 }
