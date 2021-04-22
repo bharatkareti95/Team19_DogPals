@@ -12,10 +12,10 @@ public class BookingDTO implements Serializable {
     private Long id;
 
     @NotNull
-    private Long price;
+    private BookStatus status;
 
     @NotNull
-    private BookStatus status;
+    private Integer userId;
 
 
     private Long trainingId;
@@ -28,20 +28,20 @@ public class BookingDTO implements Serializable {
         this.id = id;
     }
 
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
     public BookStatus getStatus() {
         return status;
     }
 
     public void setStatus(BookStatus status) {
         this.status = status;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Long getTrainingId() {
@@ -74,8 +74,8 @@ public class BookingDTO implements Serializable {
     public String toString() {
         return "BookingDTO{" +
             "id=" + getId() +
-            ", price=" + getPrice() +
             ", status='" + getStatus() + "'" +
+            ", userId=" + getUserId() +
             ", trainingId=" + getTrainingId() +
             "}";
     }

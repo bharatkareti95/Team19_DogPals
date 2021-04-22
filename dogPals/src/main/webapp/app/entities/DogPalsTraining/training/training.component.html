@@ -47,10 +47,9 @@
                     <th scope="col"  jhiSortBy="location"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.location">Location</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="price"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.price">Price</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="agency"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.agency">Agency</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="bookingStatus"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.bookingStatus">Booking Status</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="startTime"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.startTime">Start Time</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="endTime"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.endTime">End Time</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="slot"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.slot">Slot</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="capacity"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.capacity">Capacity</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="popularity"><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.popularity">Popularity</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -64,10 +63,9 @@
                     <td>{{ training.location }}</td>
                     <td>{{ training.price }}</td>
                     <td>{{ training.agency }}</td>
-                    <td>{{ training.bookingStatus }}</td>
                     <td>{{ training.startTime | date:'medium' }}</td>
                     <td>{{ training.endTime | date:'medium' }}</td>
-                    <td>{{ training.slot }}</td>
+                    <td>{{ training.capacity }}</td>
                     <td>{{ training.popularity }}</td>
                     <td class="text-right">
                         <div class="btn-group">

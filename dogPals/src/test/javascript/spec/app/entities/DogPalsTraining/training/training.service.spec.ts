@@ -24,7 +24,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Training(0, 'AAAAAAA', currentDate, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', 'AAAAAAA', currentDate, currentDate, 0, 0);
+      elemDefault = new Training(0, 'AAAAAAA', currentDate, 'AAAAAAA', 'AAAAAAA', 0, 'AAAAAAA', currentDate, currentDate, 0, 0);
     });
 
     describe('Service methods', () => {
@@ -81,10 +81,9 @@ describe('Service Tests', () => {
             location: 'BBBBBB',
             price: 1,
             agency: 'BBBBBB',
-            bookingStatus: 'BBBBBB',
             startTime: currentDate.format(DATE_TIME_FORMAT),
             endTime: currentDate.format(DATE_TIME_FORMAT),
-            slot: 1,
+            capacity: 1,
             popularity: 1,
           },
           elemDefault
@@ -115,10 +114,9 @@ describe('Service Tests', () => {
             location: 'BBBBBB',
             price: 1,
             agency: 'BBBBBB',
-            bookingStatus: 'BBBBBB',
             startTime: currentDate.format(DATE_TIME_FORMAT),
             endTime: currentDate.format(DATE_TIME_FORMAT),
-            slot: 1,
+            capacity: 1,
             popularity: 1,
           },
           elemDefault

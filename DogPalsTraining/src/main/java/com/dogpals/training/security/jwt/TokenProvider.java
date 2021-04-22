@@ -21,12 +21,15 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
+import com.dogpals.training.security.jwt.SamAuthenticationToken;
+
 @Component
 public class TokenProvider {
 
     private final Logger log = LoggerFactory.getLogger(TokenProvider.class);
 
     private static final String AUTHORITIES_KEY = "auth";
+    private static final String USER_ID_KEY = "userId";
 
     private Key key;
 
@@ -92,10 +95,20 @@ public class TokenProvider {
             Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        Long userId = null;
+        Object userIdObj = claims.get(USER_ID_KEY);
+        if (userIdObj != null) {
+            String userIdStr = userIdObj.toString();
+            userId = Long.parseLong(userIdStr);
+            log.debug("Claim--> {}", userId);
+        } else {
+        log.debug("No user id in token");
+        }
 
         User principal = new User(claims.getSubject(), "", authorities);
 
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        // return new UsernamePasswordAuthenticationToken(principal, token, authorities);
+        return new SamAuthenticationToken(principal, token, authorities, userId);
     }
 
     public boolean validateToken(String authToken) {

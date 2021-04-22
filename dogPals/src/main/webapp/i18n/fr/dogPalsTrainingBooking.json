@@ -14,8 +14,8 @@
       "detail": {
         "title": "Booking"
       },
-      "price": "Price",
       "status": "Status",
+      "userId": "User Id",
       "training": "Training"
     }
   },

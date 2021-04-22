@@ -34,16 +34,13 @@
             <column name="agency" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="booking_status" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
             <column name="start_time" type="datetime">
                 <constraints nullable="false" />
             </column>
             <column name="end_time" type="datetime">
                 <constraints nullable="false" />
             </column>
-            <column name="slot" type="integer">
+            <column name="capacity" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="popularity" type="${floatType}">
@@ -81,10 +78,9 @@
             <column name="location" type="string"/>
             <column name="price" type="numeric"/>
             <column name="agency" type="string"/>
-            <column name="booking_status" type="string"/>
             <column name="start_time" type="datetime"/>
             <column name="end_time" type="datetime"/>
-            <column name="slot" type="numeric"/>
+            <column name="capacity" type="numeric"/>
             <column name="popularity" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>

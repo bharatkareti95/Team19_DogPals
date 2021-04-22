@@ -28,13 +28,13 @@ public class Booking implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "price", nullable = false)
-    private Long price;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private BookStatus status;
+
+    @NotNull
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "bookings", allowSetters = true)
@@ -49,19 +49,6 @@ public class Booking implements Serializable {
         this.id = id;
     }
 
-    public Long getPrice() {
-        return price;
-    }
-
-    public Booking price(Long price) {
-        this.price = price;
-        return this;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
     public BookStatus getStatus() {
         return status;
     }
@@ -73,6 +60,19 @@ public class Booking implements Serializable {
 
     public void setStatus(BookStatus status) {
         this.status = status;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public Booking userId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public Training getTraining() {
@@ -110,8 +110,8 @@ public class Booking implements Serializable {
     public String toString() {
         return "Booking{" +
             "id=" + getId() +
-            ", price=" + getPrice() +
             ", status='" + getStatus() + "'" +
+            ", userId=" + getUserId() +
             "}";
     }
 }

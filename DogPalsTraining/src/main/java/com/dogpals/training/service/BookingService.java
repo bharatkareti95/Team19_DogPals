@@ -57,13 +57,13 @@ public class BookingService {
 
     /**
      * Get all the bookings.
-     *
+     * 
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<BookingDTO> findAll() {
-        log.debug("Request to get all Bookings");
-        return bookingRepository.findAll().stream()
+    public List<BookingDTO> findAll(Integer userId) {
+        log.debug("Request to get all Bookings for user : {}", userId);
+        return bookingRepository.findByUserId(userId).stream()
             .map(bookingMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }

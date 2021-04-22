@@ -41,11 +41,11 @@ import com.dogpals.training.domain.enumeration.BookStatus;
 @WithMockUser
 public class BookingResourceIT {
 
-    private static final Long DEFAULT_PRICE = 1L;
-    private static final Long UPDATED_PRICE = 2L;
-
     private static final BookStatus DEFAULT_STATUS = BookStatus.Booked;
     private static final BookStatus UPDATED_STATUS = BookStatus.No;
+
+    private static final Integer DEFAULT_USER_ID = 1;
+    private static final Integer UPDATED_USER_ID = 2;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -80,8 +80,8 @@ public class BookingResourceIT {
      */
     public static Booking createEntity(EntityManager em) {
         Booking booking = new Booking()
-            .price(DEFAULT_PRICE)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .userId(DEFAULT_USER_ID);
         return booking;
     }
     /**
@@ -92,8 +92,8 @@ public class BookingResourceIT {
      */
     public static Booking createUpdatedEntity(EntityManager em) {
         Booking booking = new Booking()
-            .price(UPDATED_PRICE)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .userId(UPDATED_USER_ID);
         return booking;
     }
 
@@ -117,8 +117,8 @@ public class BookingResourceIT {
         List<Booking> bookingList = bookingRepository.findAll();
         assertThat(bookingList).hasSize(databaseSizeBeforeCreate + 1);
         Booking testBooking = bookingList.get(bookingList.size() - 1);
-        assertThat(testBooking.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testBooking.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testBooking.getUserId()).isEqualTo(DEFAULT_USER_ID);
 
         // Validate the Booking in Elasticsearch
         verify(mockBookingSearchRepository, times(1)).save(testBooking);
@@ -150,10 +150,10 @@ public class BookingResourceIT {
 
     @Test
     @Transactional
-    public void checkPriceIsRequired() throws Exception {
+    public void checkStatusIsRequired() throws Exception {
         int databaseSizeBeforeTest = bookingRepository.findAll().size();
         // set the field null
-        booking.setPrice(null);
+        booking.setStatus(null);
 
         // Create the Booking, which fails.
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
@@ -170,10 +170,10 @@ public class BookingResourceIT {
 
     @Test
     @Transactional
-    public void checkStatusIsRequired() throws Exception {
+    public void checkUserIdIsRequired() throws Exception {
         int databaseSizeBeforeTest = bookingRepository.findAll().size();
         // set the field null
-        booking.setStatus(null);
+        booking.setUserId(null);
 
         // Create the Booking, which fails.
         BookingDTO bookingDTO = bookingMapper.toDto(booking);
@@ -199,8 +199,8 @@ public class BookingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID)));
     }
     
     @Test
@@ -214,8 +214,8 @@ public class BookingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(booking.getId().intValue()))
-            .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID));
     }
     @Test
     @Transactional
@@ -238,8 +238,8 @@ public class BookingResourceIT {
         // Disconnect from session so that the updates on updatedBooking are not directly saved in db
         em.detach(updatedBooking);
         updatedBooking
-            .price(UPDATED_PRICE)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .userId(UPDATED_USER_ID);
         BookingDTO bookingDTO = bookingMapper.toDto(updatedBooking);
 
         restBookingMockMvc.perform(put("/api/bookings")
@@ -251,8 +251,8 @@ public class BookingResourceIT {
         List<Booking> bookingList = bookingRepository.findAll();
         assertThat(bookingList).hasSize(databaseSizeBeforeUpdate);
         Booking testBooking = bookingList.get(bookingList.size() - 1);
-        assertThat(testBooking.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testBooking.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testBooking.getUserId()).isEqualTo(UPDATED_USER_ID);
 
         // Validate the Booking in Elasticsearch
         verify(mockBookingSearchRepository, times(1)).save(testBooking);
@@ -315,7 +315,7 @@ public class BookingResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(booking.getId().intValue())))
-            .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID)));
     }
 }

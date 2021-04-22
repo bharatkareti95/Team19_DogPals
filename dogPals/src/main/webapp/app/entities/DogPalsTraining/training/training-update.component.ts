@@ -25,10 +25,9 @@ export class TrainingUpdateComponent implements OnInit {
     location: [null, [Validators.required]],
     price: [null, [Validators.required]],
     agency: [null, [Validators.required]],
-    bookingStatus: [null, [Validators.required]],
     startTime: [null, [Validators.required]],
     endTime: [null, [Validators.required]],
-    slot: [],
+    capacity: [],
     popularity: [null, [Validators.required]],
   });
 
@@ -56,10 +55,9 @@ export class TrainingUpdateComponent implements OnInit {
       location: training.location,
       price: training.price,
       agency: training.agency,
-      bookingStatus: training.bookingStatus,
       startTime: training.startTime ? training.startTime.format(DATE_TIME_FORMAT) : null,
       endTime: training.endTime ? training.endTime.format(DATE_TIME_FORMAT) : null,
-      slot: training.slot,
+      capacity: training.capacity,
       popularity: training.popularity,
     });
   }
@@ -88,10 +86,9 @@ export class TrainingUpdateComponent implements OnInit {
       location: this.editForm.get(['location'])!.value,
       price: this.editForm.get(['price'])!.value,
       agency: this.editForm.get(['agency'])!.value,
-      bookingStatus: this.editForm.get(['bookingStatus'])!.value,
       startTime: this.editForm.get(['startTime'])!.value ? moment(this.editForm.get(['startTime'])!.value, DATE_TIME_FORMAT) : undefined,
       endTime: this.editForm.get(['endTime'])!.value ? moment(this.editForm.get(['endTime'])!.value, DATE_TIME_FORMAT) : undefined,
-      slot: this.editForm.get(['slot'])!.value,
+      capacity: this.editForm.get(['capacity'])!.value,
       popularity: this.editForm.get(['popularity'])!.value,
     };
   }

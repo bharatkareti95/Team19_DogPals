@@ -8,13 +8,13 @@
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.price">Price</span></dt>
-                <dd>
-                    <span>{{ booking.price }}</span>
-                </dd>
                 <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status">Status</span></dt>
                 <dd>
                     <span jhiTranslate="{{ 'dogPalsApp.BookStatus.' + booking.status }}">{{ booking.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.userId">User Id</span></dt>
+                <dd>
+                    <span>{{ booking.userId }}</span>
                 </dd>
                 <dt><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training">Training</span></dt>
                 <dd>

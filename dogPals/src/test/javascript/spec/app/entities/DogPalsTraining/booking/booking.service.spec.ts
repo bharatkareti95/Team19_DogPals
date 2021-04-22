@@ -21,7 +21,7 @@ describe('Service Tests', () => {
       service = injector.get(BookingService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Booking(0, 0, BookStatus.Booked);
+      elemDefault = new Booking(0, BookStatus.Booked, 0);
     });
 
     describe('Service methods', () => {
@@ -55,8 +55,8 @@ describe('Service Tests', () => {
       it('should update a Booking', () => {
         const returnedFromService = Object.assign(
           {
-            price: 1,
             status: 'BBBBBB',
+            userId: 1,
           },
           elemDefault
         );
@@ -73,8 +73,8 @@ describe('Service Tests', () => {
       it('should return a list of Booking', () => {
         const returnedFromService = Object.assign(
           {
-            price: 1,
             status: 'BBBBBB',
+            userId: 1,
           },
           elemDefault
         );

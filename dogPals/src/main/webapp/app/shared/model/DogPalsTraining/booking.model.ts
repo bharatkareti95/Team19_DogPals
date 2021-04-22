@@ -2,11 +2,11 @@ import { BookStatus } from 'app/shared/model/enumerations/book-status.model';
 
 export interface IBooking {
   id?: number;
-  price?: number;
   status?: BookStatus;
+  userId?: number;
   trainingId?: number;
 }
 
 export class Booking implements IBooking {
-  constructor(public id?: number, public price?: number, public status?: BookStatus, public trainingId?: number) {}
+  constructor(public id?: number, public status?: BookStatus, public userId?: number, public trainingId?: number) {}
 }

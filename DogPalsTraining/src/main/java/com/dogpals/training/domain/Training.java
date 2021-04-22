@@ -53,10 +53,6 @@ public class Training implements Serializable {
     private String agency;
 
     @NotNull
-    @Column(name = "booking_status", nullable = false)
-    private String bookingStatus;
-
-    @NotNull
     @Column(name = "start_time", nullable = false)
     private Instant startTime;
 
@@ -64,8 +60,8 @@ public class Training implements Serializable {
     @Column(name = "end_time", nullable = false)
     private Instant endTime;
 
-    @Column(name = "slot")
-    private Integer slot;
+    @Column(name = "capacity")
+    private Integer capacity;
 
     @NotNull
     @Column(name = "popularity", nullable = false)
@@ -166,19 +162,6 @@ public class Training implements Serializable {
         this.agency = agency;
     }
 
-    public String getBookingStatus() {
-        return bookingStatus;
-    }
-
-    public Training bookingStatus(String bookingStatus) {
-        this.bookingStatus = bookingStatus;
-        return this;
-    }
-
-    public void setBookingStatus(String bookingStatus) {
-        this.bookingStatus = bookingStatus;
-    }
-
     public Instant getStartTime() {
         return startTime;
     }
@@ -205,17 +188,17 @@ public class Training implements Serializable {
         this.endTime = endTime;
     }
 
-    public Integer getSlot() {
-        return slot;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public Training slot(Integer slot) {
-        this.slot = slot;
+    public Training capacity(Integer capacity) {
+        this.capacity = capacity;
         return this;
     }
 
-    public void setSlot(Integer slot) {
-        this.slot = slot;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public Float getPopularity() {
@@ -309,10 +292,9 @@ public class Training implements Serializable {
             ", location='" + getLocation() + "'" +
             ", price=" + getPrice() +
             ", agency='" + getAgency() + "'" +
-            ", bookingStatus='" + getBookingStatus() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
-            ", slot=" + getSlot() +
+            ", capacity=" + getCapacity() +
             ", popularity=" + getPopularity() +
             "}";
     }

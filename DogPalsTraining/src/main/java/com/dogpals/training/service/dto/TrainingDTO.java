@@ -31,15 +31,12 @@ public class TrainingDTO implements Serializable {
     private String agency;
 
     @NotNull
-    private String bookingStatus;
-
-    @NotNull
     private Instant startTime;
 
     @NotNull
     private Instant endTime;
 
-    private Integer slot;
+    private Integer capacity;
 
     @NotNull
     private Float popularity;
@@ -101,14 +98,6 @@ public class TrainingDTO implements Serializable {
         this.agency = agency;
     }
 
-    public String getBookingStatus() {
-        return bookingStatus;
-    }
-
-    public void setBookingStatus(String bookingStatus) {
-        this.bookingStatus = bookingStatus;
-    }
-
     public Instant getStartTime() {
         return startTime;
     }
@@ -125,12 +114,12 @@ public class TrainingDTO implements Serializable {
         this.endTime = endTime;
     }
 
-    public Integer getSlot() {
-        return slot;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setSlot(Integer slot) {
-        this.slot = slot;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public Float getPopularity() {
@@ -169,10 +158,9 @@ public class TrainingDTO implements Serializable {
             ", location='" + getLocation() + "'" +
             ", price=" + getPrice() +
             ", agency='" + getAgency() + "'" +
-            ", bookingStatus='" + getBookingStatus() + "'" +
             ", startTime='" + getStartTime() + "'" +
             ", endTime='" + getEndTime() + "'" +
-            ", slot=" + getSlot() +
+            ", capacity=" + getCapacity() +
             ", popularity=" + getPopularity() +
             "}";
     }

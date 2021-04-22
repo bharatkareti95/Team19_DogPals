@@ -20,10 +20,9 @@
       "location": "Location",
       "price": "Price",
       "agency": "Agency",
-      "bookingStatus": "Booking Status",
       "startTime": "Start Time",
       "endTime": "End Time",
-      "slot": "Slot",
+      "capacity": "Capacity",
       "popularity": "Popularity",
       "popular": "Popular",
       "booking": "Booking"

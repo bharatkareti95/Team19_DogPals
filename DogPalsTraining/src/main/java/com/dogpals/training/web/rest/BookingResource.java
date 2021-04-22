@@ -3,6 +3,7 @@ package com.dogpals.training.web.rest;
 import com.dogpals.training.service.BookingService;
 import com.dogpals.training.web.rest.errors.BadRequestAlertException;
 import com.dogpals.training.service.dto.BookingDTO;
+import com.dogpals.training.security.SecurityUtils;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -36,9 +37,9 @@ public class BookingResource {
     private String applicationName;
 
     private final BookingService bookingService;
-
     public BookingResource(BookingService bookingService) {
         this.bookingService = bookingService;
+
     }
 
     /**
@@ -54,6 +55,15 @@ public class BookingResource {
         if (bookingDTO.getId() != null) {
             throw new BadRequestAlertException("A new booking cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST create set Bookings to userId : {}", userId.get());
+        bookingDTO.setUserId(userId.get().intValue());
         BookingDTO result = bookingService.save(bookingDTO);
         return ResponseEntity.created(new URI("/api/bookings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -75,6 +85,15 @@ public class BookingResource {
         if (bookingDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST update set Bookings to userId : {}", userId.get());
+        bookingDTO.setUserId(userId.get().intValue());
         BookingDTO result = bookingService.save(bookingDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, bookingDTO.getId().toString()))
@@ -89,7 +108,13 @@ public class BookingResource {
     @GetMapping("/bookings")
     public List<BookingDTO> getAllBookings() {
         log.debug("REST request to get all Bookings");
-        return bookingService.findAll();
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        return bookingService.findAll(userId.get().intValue());
     }
 
     /**

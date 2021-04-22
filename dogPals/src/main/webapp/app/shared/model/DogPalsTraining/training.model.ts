@@ -10,10 +10,9 @@ export interface ITraining {
   location?: string;
   price?: number;
   agency?: string;
-  bookingStatus?: string;
   startTime?: Moment;
   endTime?: Moment;
-  slot?: number;
+  capacity?: number;
   popularity?: number;
   populars?: IPopular[];
   bookings?: IBooking[];
@@ -28,10 +27,9 @@ export class Training implements ITraining {
     public location?: string,
     public price?: number,
     public agency?: string,
-    public bookingStatus?: string,
     public startTime?: Moment,
     public endTime?: Moment,
-    public slot?: number,
+    public capacity?: number,
     public popularity?: number,
     public populars?: IPopular[],
     public bookings?: IBooking[]

@@ -34,11 +34,6 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "bookingStatus",
-      "fieldType": "String",
-      "fieldValidateRules": ["required"]
-    },
-    {
       "fieldName": "startTime",
       "fieldType": "Instant",
       "fieldValidateRules": ["required"]
@@ -49,7 +44,7 @@
       "fieldValidateRules": ["required"]
     },
     {
-      "fieldName": "slot",
+      "fieldName": "capacity",
       "fieldType": "Integer"
     },
     {
@@ -72,7 +67,7 @@
       "relationshipName": "booking"
     }
   ],
-  "changelogDate": "20210328181650",
+  "changelogDate": "20210420155811",
   "entityTableName": "training",
   "dto": "mapstruct",
   "pagination": "pagination",

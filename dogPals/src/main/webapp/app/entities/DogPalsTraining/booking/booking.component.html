@@ -41,8 +41,8 @@
             <thead>
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
-                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.price">Price</span></th>
                     <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status">Status</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.userId">User Id</span></th>
                     <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training">Training</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -50,8 +50,8 @@
             <tbody>
                 <tr *ngFor="let booking of bookings ;trackBy: trackId">
                     <td><a [routerLink]="['/booking', booking.id, 'view']">{{ booking.id }}</a></td>
-                    <td>{{ booking.price }}</td>
                     <td jhiTranslate="{{ 'dogPalsApp.BookStatus.' + booking.status }}">{{ booking.status }}</td>
+                    <td>{{ booking.userId }}</td>
                     <td>
                         <div *ngIf="booking.trainingId">
                             <a [routerLink]="['/training', booking.trainingId , 'view']" >{{ booking.trainingId }}</a>

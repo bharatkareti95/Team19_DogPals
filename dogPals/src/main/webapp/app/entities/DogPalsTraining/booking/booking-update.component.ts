@@ -20,8 +20,8 @@ export class BookingUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    price: [null, [Validators.required]],
     status: [null, [Validators.required]],
+    userId: [],
     trainingId: [],
   });
 
@@ -43,8 +43,8 @@ export class BookingUpdateComponent implements OnInit {
   updateForm(booking: IBooking): void {
     this.editForm.patchValue({
       id: booking.id,
-      price: booking.price,
       status: booking.status,
+      userId: booking.userId,
       trainingId: booking.trainingId,
     });
   }
@@ -67,8 +67,10 @@ export class BookingUpdateComponent implements OnInit {
     return {
       ...new Booking(),
       id: this.editForm.get(['id'])!.value,
-      price: this.editForm.get(['price'])!.value,
       status: this.editForm.get(['status'])!.value,
+     // userId: this.editForm.get(['userId'])!.value,
+     // adding randomValue
+      userId: 10,
       trainingId: this.editForm.get(['trainingId'])!.value,
     };
   }

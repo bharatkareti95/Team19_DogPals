@@ -62,17 +62,14 @@ public class TrainingResourceIT {
     private static final String DEFAULT_AGENCY = "AAAAAAAAAA";
     private static final String UPDATED_AGENCY = "BBBBBBBBBB";
 
-    private static final String DEFAULT_BOOKING_STATUS = "AAAAAAAAAA";
-    private static final String UPDATED_BOOKING_STATUS = "BBBBBBBBBB";
-
     private static final Instant DEFAULT_START_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_START_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
     private static final Instant DEFAULT_END_TIME = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_END_TIME = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Integer DEFAULT_SLOT = 1;
-    private static final Integer UPDATED_SLOT = 2;
+    private static final Integer DEFAULT_CAPACITY = 1;
+    private static final Integer UPDATED_CAPACITY = 2;
 
     private static final Float DEFAULT_POPULARITY = 1F;
     private static final Float UPDATED_POPULARITY = 2F;
@@ -116,10 +113,9 @@ public class TrainingResourceIT {
             .location(DEFAULT_LOCATION)
             .price(DEFAULT_PRICE)
             .agency(DEFAULT_AGENCY)
-            .bookingStatus(DEFAULT_BOOKING_STATUS)
             .startTime(DEFAULT_START_TIME)
             .endTime(DEFAULT_END_TIME)
-            .slot(DEFAULT_SLOT)
+            .capacity(DEFAULT_CAPACITY)
             .popularity(DEFAULT_POPULARITY);
         return training;
     }
@@ -137,10 +133,9 @@ public class TrainingResourceIT {
             .location(UPDATED_LOCATION)
             .price(UPDATED_PRICE)
             .agency(UPDATED_AGENCY)
-            .bookingStatus(UPDATED_BOOKING_STATUS)
             .startTime(UPDATED_START_TIME)
             .endTime(UPDATED_END_TIME)
-            .slot(UPDATED_SLOT)
+            .capacity(UPDATED_CAPACITY)
             .popularity(UPDATED_POPULARITY);
         return training;
     }
@@ -171,10 +166,9 @@ public class TrainingResourceIT {
         assertThat(testTraining.getLocation()).isEqualTo(DEFAULT_LOCATION);
         assertThat(testTraining.getPrice()).isEqualTo(DEFAULT_PRICE);
         assertThat(testTraining.getAgency()).isEqualTo(DEFAULT_AGENCY);
-        assertThat(testTraining.getBookingStatus()).isEqualTo(DEFAULT_BOOKING_STATUS);
         assertThat(testTraining.getStartTime()).isEqualTo(DEFAULT_START_TIME);
         assertThat(testTraining.getEndTime()).isEqualTo(DEFAULT_END_TIME);
-        assertThat(testTraining.getSlot()).isEqualTo(DEFAULT_SLOT);
+        assertThat(testTraining.getCapacity()).isEqualTo(DEFAULT_CAPACITY);
         assertThat(testTraining.getPopularity()).isEqualTo(DEFAULT_POPULARITY);
 
         // Validate the Training in Elasticsearch
@@ -307,26 +301,6 @@ public class TrainingResourceIT {
 
     @Test
     @Transactional
-    public void checkBookingStatusIsRequired() throws Exception {
-        int databaseSizeBeforeTest = trainingRepository.findAll().size();
-        // set the field null
-        training.setBookingStatus(null);
-
-        // Create the Training, which fails.
-        TrainingDTO trainingDTO = trainingMapper.toDto(training);
-
-
-        restTrainingMockMvc.perform(post("/api/trainings")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(trainingDTO)))
-            .andExpect(status().isBadRequest());
-
-        List<Training> trainingList = trainingRepository.findAll();
-        assertThat(trainingList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkStartTimeIsRequired() throws Exception {
         int databaseSizeBeforeTest = trainingRepository.findAll().size();
         // set the field null
@@ -402,10 +376,9 @@ public class TrainingResourceIT {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].agency").value(hasItem(DEFAULT_AGENCY)))
-            .andExpect(jsonPath("$.[*].bookingStatus").value(hasItem(DEFAULT_BOOKING_STATUS)))
             .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME.toString())))
             .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME.toString())))
-            .andExpect(jsonPath("$.[*].slot").value(hasItem(DEFAULT_SLOT)))
+            .andExpect(jsonPath("$.[*].capacity").value(hasItem(DEFAULT_CAPACITY)))
             .andExpect(jsonPath("$.[*].popularity").value(hasItem(DEFAULT_POPULARITY.doubleValue())));
     }
     
@@ -426,10 +399,9 @@ public class TrainingResourceIT {
             .andExpect(jsonPath("$.location").value(DEFAULT_LOCATION))
             .andExpect(jsonPath("$.price").value(DEFAULT_PRICE.intValue()))
             .andExpect(jsonPath("$.agency").value(DEFAULT_AGENCY))
-            .andExpect(jsonPath("$.bookingStatus").value(DEFAULT_BOOKING_STATUS))
             .andExpect(jsonPath("$.startTime").value(DEFAULT_START_TIME.toString()))
             .andExpect(jsonPath("$.endTime").value(DEFAULT_END_TIME.toString()))
-            .andExpect(jsonPath("$.slot").value(DEFAULT_SLOT))
+            .andExpect(jsonPath("$.capacity").value(DEFAULT_CAPACITY))
             .andExpect(jsonPath("$.popularity").value(DEFAULT_POPULARITY.doubleValue()));
     }
     @Test
@@ -459,10 +431,9 @@ public class TrainingResourceIT {
             .location(UPDATED_LOCATION)
             .price(UPDATED_PRICE)
             .agency(UPDATED_AGENCY)
-            .bookingStatus(UPDATED_BOOKING_STATUS)
             .startTime(UPDATED_START_TIME)
             .endTime(UPDATED_END_TIME)
-            .slot(UPDATED_SLOT)
+            .capacity(UPDATED_CAPACITY)
             .popularity(UPDATED_POPULARITY);
         TrainingDTO trainingDTO = trainingMapper.toDto(updatedTraining);
 
@@ -481,10 +452,9 @@ public class TrainingResourceIT {
         assertThat(testTraining.getLocation()).isEqualTo(UPDATED_LOCATION);
         assertThat(testTraining.getPrice()).isEqualTo(UPDATED_PRICE);
         assertThat(testTraining.getAgency()).isEqualTo(UPDATED_AGENCY);
-        assertThat(testTraining.getBookingStatus()).isEqualTo(UPDATED_BOOKING_STATUS);
         assertThat(testTraining.getStartTime()).isEqualTo(UPDATED_START_TIME);
         assertThat(testTraining.getEndTime()).isEqualTo(UPDATED_END_TIME);
-        assertThat(testTraining.getSlot()).isEqualTo(UPDATED_SLOT);
+        assertThat(testTraining.getCapacity()).isEqualTo(UPDATED_CAPACITY);
         assertThat(testTraining.getPopularity()).isEqualTo(UPDATED_POPULARITY);
 
         // Validate the Training in Elasticsearch
@@ -554,10 +524,9 @@ public class TrainingResourceIT {
             .andExpect(jsonPath("$.[*].location").value(hasItem(DEFAULT_LOCATION)))
             .andExpect(jsonPath("$.[*].price").value(hasItem(DEFAULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].agency").value(hasItem(DEFAULT_AGENCY)))
-            .andExpect(jsonPath("$.[*].bookingStatus").value(hasItem(DEFAULT_BOOKING_STATUS)))
             .andExpect(jsonPath("$.[*].startTime").value(hasItem(DEFAULT_START_TIME.toString())))
             .andExpect(jsonPath("$.[*].endTime").value(hasItem(DEFAULT_END_TIME.toString())))
-            .andExpect(jsonPath("$.[*].slot").value(hasItem(DEFAULT_SLOT)))
+            .andExpect(jsonPath("$.[*].capacity").value(hasItem(DEFAULT_CAPACITY)))
             .andExpect(jsonPath("$.[*].popularity").value(hasItem(DEFAULT_POPULARITY.doubleValue())));
     }
 }
