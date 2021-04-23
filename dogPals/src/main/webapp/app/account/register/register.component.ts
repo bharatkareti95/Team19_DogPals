@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared/constants/error.constants';
@@ -34,6 +34,7 @@ export class RegisterComponent implements AfterViewInit {
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+    typeVar: new FormControl('', Validators.required),
   });
 
   constructor(
@@ -47,6 +48,7 @@ export class RegisterComponent implements AfterViewInit {
     if (this.login) {
       this.login.nativeElement.focus();
     }
+    this.registerForm.patchValue({ typeVar: 'a' });
   }
 
   register(): void {
@@ -60,12 +62,19 @@ export class RegisterComponent implements AfterViewInit {
       this.doNotMatch = true;
     } else {
       const login = this.registerForm.get(['login'])!.value;
+      // const authorities = this.registerForm.get(['myVar']).value;
+
       const email = this.registerForm.get(['email'])!.value;
-      this.registerService.save({ login, email, password, langKey: this.languageService.getCurrentLanguage() }).subscribe(
-        () => (this.success = true),
-        response => this.processError(response)
-      );
+      const authority = this.registerForm.get(['typeVar'])!.value;
+      this.registerService
+        .save({ login, password, email, firstName: authority, langKey: this.languageService.getCurrentLanguage() })
+        .subscribe(
+          () => (this.success = true),
+          response => this.processError(response)
+        );
     }
+
+    this.openLogin();
   }
 
   openLogin(): void {

