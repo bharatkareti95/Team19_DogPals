@@ -39,7 +39,7 @@ export const trainingRoute: Routes = [
     path: '',
     component: TrainingComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [],
       defaultSort: 'id,asc',
       pageTitle: 'dogPalsApp.dogPalsTrainingTraining.home.title',
     },

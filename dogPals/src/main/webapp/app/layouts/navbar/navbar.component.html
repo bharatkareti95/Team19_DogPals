@@ -270,7 +270,7 @@
 
         <!-- Other Information -->
     
-        <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()" style="margin: 0 auto; text-align: center;">
+        <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" style="margin: 0 auto; text-align: center;" [ngSwitch]="isAuthenticated()" >
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
@@ -295,7 +295,7 @@
                             </a>
                         </li>
                          <!-- #TODO: Change the route to training route once completed  -->
-                        <li *ngSwitchCase="true">
+                        <li  *ngSwitchCase="true">
                             <a class="dropdown-item" routerLink="booking" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                                 <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
                                 <span>Current Bookings </span>
@@ -303,11 +303,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a class="nav-link" routerLink="post" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                        <fa-icon icon="list" [fixedWidth]="true"></fa-icon>
-                        <span >Forum</span>
+                
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <a class="nav-link" routerLink="post" (click)="collapseNavbar()">
+                        <span>
+                            <fa-icon icon="list"  [fixedWidth]="true"></fa-icon>
+                            <span>Post</span>
+                        </span>
                     </a>
+                    
                 </li>
 
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
@@ -336,7 +340,7 @@
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     <!-- </ul>
                 </li>
-                
+            
                 <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
                         <span>
@@ -366,7 +370,7 @@
                         <li>
                             <a class="dropdown-item" routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
                                 <fa-icon icon="tachometer-alt" [fixedWidth]="true"></fa-icon>
-                                <span>Metrics</span>
+                                <span>Metrsics</span>
                             </a>
                         </li>
                         <li>
