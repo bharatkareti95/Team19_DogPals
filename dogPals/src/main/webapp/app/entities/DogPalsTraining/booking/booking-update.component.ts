@@ -70,7 +70,7 @@ export class BookingUpdateComponent implements OnInit {
       status: this.editForm.get(['status'])!.value,
      // userId: this.editForm.get(['userId'])!.value,
      // adding randomValue
-      userId: 10,
+      userId: 0,
       trainingId: this.editForm.get(['trainingId'])!.value,
     };
   }

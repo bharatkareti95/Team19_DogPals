@@ -41,6 +41,9 @@ public class TrainingDTO implements Serializable {
     @NotNull
     private Float popularity;
 
+    //added to trace the training entity created by trainer
+    @NotNull
+    private Integer userId;
     
     public Long getId() {
         return id;
@@ -130,6 +133,14 @@ public class TrainingDTO implements Serializable {
         this.popularity = popularity;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -162,6 +173,7 @@ public class TrainingDTO implements Serializable {
             ", endTime='" + getEndTime() + "'" +
             ", capacity=" + getCapacity() +
             ", popularity=" + getPopularity() +
+            ", userId=" +getUserId() +
             "}";
     }
 }

@@ -15,33 +15,8 @@
                     <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status" for="field_status">Status</label>
                     <select class="form-control" name="status" formControlName="status" id="field_status">
                         <option value="Pending">{{ 'dogPalsApp.BookStatus.Pending' | translate }}</option>
-                       <!--  <option value="Booked">{{ 'dogPalsApp.BookStatus.Booked' | translate }}</option>
-                        <option value="No">{{ 'dogPalsApp.BookStatus.No' | translate }}</option>
-                        <option value="Cancelled">{{ 'dogPalsApp.BookStatus.Cancelled' | translate }}</option>
-                    </select> -->
-                    <!-- <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div> -->
+                       
                 </div>
-
-                <!-- <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingBooking.userId" for="field_userId">User Id</label>
-                    <input type="number" class="form-control" name="userId" id="field_userId"
-                           formControlName="userId"/>
-                    <div *ngIf="editForm.get('userId')!.invalid && (editForm.get('userId')!.dirty || editForm.get('userId')!.touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('userId')?.errors?.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.get('userId')?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div> -->
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training" for="field_training">Training</label>

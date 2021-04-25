@@ -3,6 +3,8 @@ package com.dogpals.training.web.rest;
 import com.dogpals.training.service.TrainingService;
 import com.dogpals.training.web.rest.errors.BadRequestAlertException;
 import com.dogpals.training.service.dto.TrainingDTO;
+import com.dogpals.training.security.SecurityUtils;
+import com.dogpals.training.domain.Training;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -60,6 +62,14 @@ public class TrainingResource {
         if (trainingDTO.getId() != null) {
             throw new BadRequestAlertException("A new training cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST create set Training to userId : {}", userId.get());
+        trainingDTO.setUserId(userId.get().intValue());
         TrainingDTO result = trainingService.save(trainingDTO);
         return ResponseEntity.created(new URI("/api/trainings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
@@ -81,6 +91,15 @@ public class TrainingResource {
         if (trainingDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST create set Training to userId : {}", userId.get());
+        trainingDTO.setUserId(userId.get().intValue());
         TrainingDTO result = trainingService.save(trainingDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, trainingDTO.getId().toString()))
@@ -112,6 +131,26 @@ public class TrainingResource {
         log.debug("REST request to get Training : {}", id);
         Optional<TrainingDTO> trainingDTO = trainingService.findOne(id);
         return ResponseUtil.wrapOrNotFound(trainingDTO);
+    }
+
+
+    //To get all Tranings Under particular ADMIN with its booking details
+    @GetMapping("/trainings/bookings")
+    public List<Training> getTrainingBookings(Long userId) {
+        log.debug("REST request to get Training : {}", userId);
+        List<Training> training = trainingService.findByUserId(userId.intValue());
+        for ( int i = 0 ; i <training.size() ; i++){
+            log.debug(training.get(i).toString());
+            log.debug("REST get Training ID : " + training.get(i));
+
+        }
+        // for ( int trainingId : training.id){
+        //     log.debug(training.id);
+        // }
+      //  List<BookingDTO> bookingDto = bookingService.findByTrainingID();
+        log.debug("REST requested list of Booking in Training");
+        log.debug(training.toString());
+        return training;
     }
 
     /**

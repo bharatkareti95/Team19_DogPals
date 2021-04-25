@@ -10,15 +10,22 @@ import { ITraining } from 'app/shared/model/DogPalsTraining/training.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TrainingService } from './training.service';
 import { TrainingDeleteDialogComponent } from './training-delete-dialog.component';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/user/account.model';
+import { UserService } from 'app/core/user/user.service';
+import { IUser } from 'app/core/user/user.model';
 
 @Component({
   selector: 'jhi-training',
   templateUrl: './training.component.html',
 })
 export class TrainingComponent implements OnInit, OnDestroy {
+  account: Account | null = null;
+  user: IUser | null = null;
   trainings?: ITraining[];
   eventSubscriber?: Subscription;
   currentSearch: string;
+  login: string | null = null;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
   page!: number;
@@ -31,8 +38,11 @@ export class TrainingComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private accountService: AccountService,
+    private userService: UserService,
   ) {
+    this.login = '';
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
         ? this.activatedRoute.snapshot.queryParams['search']
@@ -75,6 +85,15 @@ export class TrainingComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+  this.accountService.identity().subscribe(account => {
+   (this.account = account),(() => this.onError()) ;
+   this.userService.find(this.account?.login||'').subscribe(user => {
+    this.user = user;
+  })   
+
+});
+
+ 
     this.handleNavigation();
     this.registerChangeInTrainings();
   }
@@ -142,5 +161,15 @@ export class TrainingComponent implements OnInit, OnDestroy {
 
   protected onError(): void {
     this.ngbPaginationPage = this.page ?? 1;
+  }
+
+  validateUseIDvsTrainingID(inputId? : number) :boolean{
+    if (this.user?.id != null ){
+       return this.user.id === inputId;
+    }
+    else{
+      return false;
+    }
+    
   }
 }

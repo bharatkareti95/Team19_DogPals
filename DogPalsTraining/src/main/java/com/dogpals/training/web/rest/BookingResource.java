@@ -130,6 +130,13 @@ public class BookingResource {
         return ResponseUtil.wrapOrNotFound(bookingDTO);
     }
 
+    //To get all the booking under TrainingId
+    @GetMapping("/bookings/training")
+    public List<BookingDTO> findAllbyTrainingId(Long trainingId){
+        log.debug("REST request to get Booking : {}", trainingId);
+        return bookingService.findAllbyTrainingId(trainingId);
+    }
+
     /**
      * {@code DELETE  /bookings/:id} : delete the "id" booking.
      *

@@ -13,6 +13,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+import java.util.stream.Collectors;
+import java.util.LinkedList;
+import java.util.List;
+
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -52,6 +57,18 @@ public class TrainingService {
         trainingSearchRepository.save(training);
         return result;
     }
+
+
+    //findByUserId
+
+    @Transactional(readOnly = true)
+    public List<Training> findByUserId(Integer userId) {
+        log.debug("Request to get all Training for user : {}", userId);
+        return trainingRepository.findByUserId(userId).stream()
+            //.map(trainingMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
+
 
     /**
      * Get all the trainings.

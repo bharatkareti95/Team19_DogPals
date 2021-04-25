@@ -2,7 +2,7 @@
   "dogPalsApp": {
     "dogPalsTrainingBooking": {
       "home": {
-        "title": "Bookings",
+        "title": "Current Booking",
         "createLabel": "Create a new Booking",
         "createOrEditLabel": "Create or edit a Booking",
         "search": "Search for Booking",

@@ -68,6 +68,13 @@ public class BookingService {
             .collect(Collectors.toCollection(LinkedList::new));
     }
 
+    @Transactional(readOnly = true)
+    public List<BookingDTO> findAllbyTrainingId(Long trainingId) {
+        log.debug("Request to get all Bookings for user : {}", trainingId);
+        return bookingRepository.findByTrainingId(trainingId).stream()
+            .map(bookingMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one booking by id.

@@ -90,6 +90,7 @@ export class TrainingUpdateComponent implements OnInit {
       endTime: this.editForm.get(['endTime'])!.value ? moment(this.editForm.get(['endTime'])!.value, DATE_TIME_FORMAT) : undefined,
       capacity: this.editForm.get(['capacity'])!.value,
       popularity: this.editForm.get(['popularity'])!.value,
+      userId: 0,
     };
   }
 

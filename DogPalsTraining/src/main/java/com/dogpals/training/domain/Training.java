@@ -75,6 +75,11 @@ public class Training implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Booking> bookings = new HashSet<>();
 
+    //added to trace Training Entity
+    @NotNull
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -262,6 +267,18 @@ public class Training implements Serializable {
 
     public void setBookings(Set<Booking> bookings) {
         this.bookings = bookings;
+    }
+
+    public Training userId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+    public Integer getUserId() {
+        return userId;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

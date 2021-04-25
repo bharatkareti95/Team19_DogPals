@@ -14,6 +14,7 @@ export interface ITraining {
   endTime?: Moment;
   capacity?: number;
   popularity?: number;
+  userId?: number; 
   populars?: IPopular[];
   bookings?: IBooking[];
 }
@@ -32,6 +33,7 @@ export class Training implements ITraining {
     public capacity?: number,
     public popularity?: number,
     public populars?: IPopular[],
-    public bookings?: IBooking[]
+    public bookings?: IBooking[],
+    public userId?: number
   ) {}
 }

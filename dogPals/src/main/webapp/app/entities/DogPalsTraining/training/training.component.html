@@ -68,7 +68,7 @@
                     <td>{{ training.capacity }}</td>
                     <td>{{ training.popularity }}</td>
                     <td class="text-right">
-                        <div class="btn-group">
+                        <div class="btn-group" *ngIf="validateUseIDvsTrainingID(training.userId)" >
                             <button type="submit"
                                     [routerLink]="['/training', training.id, 'view']"
                                     class="btn btn-info btn-sm">

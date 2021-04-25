@@ -25,7 +25,8 @@
       "capacity": "Capacity",
       "popularity": "Popularity",
       "popular": "Popular",
-      "booking": "Booking"
+      "booking": "Booking",
+      "userId": "User ID"
     }
   },
   "dogPalsTrainingApp": {
