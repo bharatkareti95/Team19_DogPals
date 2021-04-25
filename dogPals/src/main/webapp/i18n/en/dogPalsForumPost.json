@@ -8,7 +8,7 @@
         "search": "Search for Post",
         "notFound": "No Posts found",
         "updateLabel": "Update Post",
-        "addLabel": "Add new Post"
+        "addLabel": "Post"
       },
       "delete": {
         "question": "Are you sure you want to delete Post {{ id }}?"
