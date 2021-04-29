@@ -1,0 +1,120 @@
+version: '2'
+services:
+  dogpals:
+    image: dogpals
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpals-mysql:3306/dogpals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - JHIPSTER_SLEEP=30
+      - 'SPRING_DATA_JEST_URI=http://dogpals-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpals-elasticsearch:9200'
+      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+    ports:
+      - '8080:8080'
+  dogpals-mysql:
+    image: 'mysql:8.0.20'
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=dogpals
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+  dogpals-elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
+    environment:
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - discovery.type=single-node
+
+  dogpalstraining:
+    image: dogpalstraining
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpalstraining-mysql:3306/dogpalstraining?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - JHIPSTER_SLEEP=30
+      - 'SPRING_DATA_JEST_URI=http://dogpalstraining-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalstraining-elasticsearch:9200'
+      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+  dogpalstraining-mysql:
+    image: 'mysql:8.0.20'
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=dogpalstraining
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+  dogpalstraining-elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
+    environment:
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - discovery.type=single-node
+
+  dogpalsforum:
+    image: dogpalsforum
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpalsforum-mysql:3306/dogpalsforum?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - JHIPSTER_SLEEP=30
+      - 'SPRING_DATA_JEST_URI=http://dogpalsforum-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalsforum-elasticsearch:9200'
+      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+  dogpalsforum-mysql:
+    image: 'mysql:8.0.20'
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=dogpalsforum
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+  dogpalsforum-elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
+    environment:
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+      - discovery.type=single-node
+
+  zookeeper:
+    extends:
+      file: kafka.yml
+      service: zookeeper
+  kafka:
+    extends:
+      file: kafka.yml
+      service: kafka
+  jhipster-registry:
+    extends:
+      file: jhipster-registry.yml
+      service: jhipster-registry
+
+  jhipster-elasticsearch:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-elasticsearch
+  jhipster-logstash:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-logstash
+    depends_on:
+      - jhipster-elasticsearch
+  jhipster-console:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-console
+    depends_on:
+      - jhipster-elasticsearch
+  jhipster-import-dashboards:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-import-dashboards
+    depends_on:
+      - jhipster-elasticsearch
