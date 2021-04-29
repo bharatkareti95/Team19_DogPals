@@ -651,6 +651,10 @@
                         </from>
                         <to>
                             <image>docker.io/bharatkareti/dogpals</image>
+                            <auth>
+                                <username>bharatkareti</username>
+                                <password>Sutd1234!</password>
+                            </auth>
                         </to>
                         <container>
                             <entrypoint>
