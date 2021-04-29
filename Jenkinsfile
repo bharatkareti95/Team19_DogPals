@@ -16,31 +16,32 @@ pipeline {
     stages {
         //Build docker image from blueprint in dockerfile. The arguments passed are: dockerRepoName:imageTag
         //Note that imageTag has build number variable for release management
-	    parallel{
-		    stage('Building presentation image'){
-			    steps {
-				    dir('dogPals') {
-				     sh "pwd"
-				     script {
-					System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
-					dockerPresentationImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
-				     }
-				    }
-			    }
-		    }
-		    
-		    stage('Building training image'){
-			    steps {
-				    dir('DogPalsTraining') {
-				     sh "pwd"
-				     script {
+	    stage('Building training image'){
+		    steps {
+			    dir('DogPalsTraining') {
+				    sh "pwd"
+				    script {
 					System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 					dockerTrainingImage = docker.build "bharatkareti/dogpals:dogpals_training$BUILD_NUMBER"
 				     }
-				    }
 			    }
-		    }		
+		    }
 	    }
+	    
+	    stage('Building presentation image'){
+		steps {
+			dir('dogPals') {
+			sh "pwd"
+			script {
+				System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
+				dockerPresentationImage = docker.build "bharatkareti/dogpals:dogpals_presentation$BUILD_NUMBER"
+				}
+			    }
+		    }
+	    }
+		    
+	    
+	    
 	    
  //       stage('Building our image') {
    //         steps {
