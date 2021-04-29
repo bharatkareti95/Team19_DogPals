@@ -645,7 +645,11 @@
                             <image>adoptopenjdk:11-jre-hotspot</image>
                         </from>
                         <to>
-                            <image>dogpalsforum:latest</image>
+                            <image>docker.io/bharatkareti/dogpals</image>
+                            <auth>
+                                <username>bharatkareti</username>
+                                <password>Sutd1234!</password>
+                            </auth>
                         </to>
                         <container>
                             <entrypoint>
