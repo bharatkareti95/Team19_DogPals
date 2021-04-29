@@ -7,6 +7,13 @@ RUN mvn spring-javaformat:help
 
 COPY . ./
 RUN mvn spring-javaformat:apply
-RUN mvn package jib:buildTar -DfinalName=dogpals_training
+RUN ./mvnw -Pprod clean package
+
+FROM openjdk:8-jre-alpine
+EXPOSE 9001
+WORKDIR /app
+
+COPY --from=build-env /app/target/dogpals_training.jar ./dogpals_training.jar
+CMD ["/usr/bin/java", "-jar", "/app/dogpals_training.jar"]
 
 
