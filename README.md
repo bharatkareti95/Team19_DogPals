@@ -23,4 +23,4 @@ DogPals aims to provide dog owners a platform where they can connect with certif
 --->
 
 ## Connection details
-(http://52.74.130.214:8080 "Jenkins Page")
+(http://52.74.130.214:8083 "Jenkins Page")
