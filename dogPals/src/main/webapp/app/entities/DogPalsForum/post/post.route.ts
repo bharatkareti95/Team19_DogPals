@@ -51,7 +51,7 @@ export const postRoute: Routes = [
       post: PostResolve,
     },
     data: {
-      authorities: [],
+      authorities: [Authority.USER],
       pageTitle: 'dogPalsApp.dogPalsForumPost.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const postRoute: Routes = [
       post: PostResolve,
     },
     data: {
-      authorities: [Authority.USER, Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'dogPalsApp.dogPalsForumPost.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const postRoute: Routes = [
       post: PostResolve,
     },
     data: {
-      authorities: [Authority.USER, Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'dogPalsApp.dogPalsForumPost.home.title',
     },
     canActivate: [UserRouteAccessService],
