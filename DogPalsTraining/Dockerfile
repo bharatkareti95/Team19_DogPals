@@ -2,12 +2,13 @@ FROM maven:3.6.3-jdk-8 AS build-env
 WORKDIR /app
 
 COPY pom.xml ./
+COPY mvnw ./
 RUN mvn dependency:go-offline
 RUN mvn spring-javaformat:help
 
 COPY . ./
 RUN mvn spring-javaformat:apply
-RUN mvnw -Pprod clean package
+RUN mvnw -Pprod clean package  -DfinalName=dogpals_training
 
 FROM openjdk:8-jre-alpine
 EXPOSE 9001
