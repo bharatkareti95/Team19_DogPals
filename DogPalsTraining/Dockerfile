@@ -7,10 +7,6 @@ RUN mvn spring-javaformat:help
 
 COPY . ./
 RUN mvn spring-javaformat:apply
-RUN mvn compile jib:buildTar -DfinalName=dogpals_training
-
-FROM openjdk:8-jre-alpine
-EXPOSE 9000
-WORKDIR /app
+RUN mvn package jib:buildTar -DfinalName=dogpals_training
 
 
