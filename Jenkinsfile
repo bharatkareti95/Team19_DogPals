@@ -20,7 +20,7 @@ pipeline {
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
-            sh "./mvnw package -Pprod verify jib:dockerBuild"
+            sh "sudo ./mvnw package -Pprod verify jib:dockerBuild"
 			
 			    }
 		    }
