@@ -7,7 +7,7 @@ RUN mvn spring-javaformat:help
 
 COPY . ./
 RUN mvn spring-javaformat:apply
-RUN ./mvnw -Pprod clean package
+RUN ./mvnw clean package
 
 FROM openjdk:8-jre-alpine
 EXPOSE 9001
