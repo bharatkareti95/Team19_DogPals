@@ -452,6 +452,11 @@
                 <artifactId>openapi-generator-maven-plugin</artifactId>
             </plugin>
             <!-- jhipster-needle-maven-add-plugin -->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>0.0.28</version>
+            </plugin>
         </plugins>
         <pluginManagement>
             <plugins>
