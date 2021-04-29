@@ -20,7 +20,23 @@ pipeline {
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_training$BUILD_NUMBER"
+			    }
+		    }
+	    }
+	    stage('Building forum image'){
+		    steps {
+			    dir('DogPalsForum') {
+				    sh "pwd"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_forum$BUILD_NUMBER"
+			    }
+		    }
+	    }
+	    stage('Building front-end image'){
+		    steps {
+			    dir('dogPals') {
+				    sh "pwd"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_frontend$BUILD_NUMBER"
 			    }
 		    }
 	    }
