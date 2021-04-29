@@ -20,11 +20,7 @@ pipeline {
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
-				     script {
-					System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
-					dockerTrainingImage = docker.build "bharatkareti/dogpals:dogpals_training$BUILD_NUMBER"
-				     }
-				    
+				    sh "./mvnw package -Pprod verify jib:build"
 			    }
 		    }
 	    }
