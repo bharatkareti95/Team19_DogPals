@@ -20,7 +20,11 @@ pipeline {
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
-				    sh "./mvnw package -DfinalName=dogpals_training$BUILD_NUMBER -Pprod verify jib:dockerBuild"
+				     script {
+					System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
+					dockerTrainingImage = docker.build "bharatkareti/dogpals:dogpals_training$BUILD_NUMBER"
+				     }
+				    
 			    }
 		    }
 	    }
