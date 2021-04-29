@@ -30,7 +30,21 @@ pipeline {
 	    }
 	    
 		    
-
+	//Push our newly created image to dockerhub
+        stage('Push image to Dockerhub') {
+            steps {
+                script {
+                    //Assume the Docker Hub registry by passing an empty string as the first parameter
+                    docker.withRegistry('' , 'docker-hub') {
+			    //dockerPresentationImage.push()
+			    dockerTrainingImage.push()
+		
+			   
+                    }
+                }
+            }
+        }
+     
         //Retrieve image from dockerhub and run container on port 9000 with the same name as the image
         stage('Run the application') {
             steps {
