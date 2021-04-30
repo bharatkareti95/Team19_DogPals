@@ -1,7 +1,7 @@
 version: '2'
 services:
   dogpals:
-    image: dogpals
+    image:  bharatkareti/dogpals_frontend
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=prod,swagger'
@@ -12,17 +12,10 @@ services:
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpals-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpals-elasticsearch:9200'
-      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
       - JHIPSTER_REGISTRY_PASSWORD=admin
     ports:
       - '8080:8080'
-  dogpals-mysql:
-    image: 'mysql:8.0.20'
-    environment:
-      - MYSQL_USER=root
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=dogpals
-    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+
   dogpals-elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
     environment:
@@ -30,7 +23,7 @@ services:
       - discovery.type=single-node
 
   dogpalstraining:
-    image: dogpalstraining
+    image: bharatkareti/dogpals_training
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=prod,swagger'
@@ -41,15 +34,8 @@ services:
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpalstraining-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalstraining-elasticsearch:9200'
-      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  dogpalstraining-mysql:
-    image: 'mysql:8.0.20'
-    environment:
-      - MYSQL_USER=root
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=dogpalstraining
-    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+  
   dogpalstraining-elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
     environment:
@@ -57,7 +43,7 @@ services:
       - discovery.type=single-node
 
   dogpalsforum:
-    image: dogpalsforum
+    image:  bharatkareti/dogpals_forum
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=prod,swagger'
@@ -68,29 +54,14 @@ services:
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpalsforum-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalsforum-elasticsearch:9200'
-      - 'KAFKA_BOOTSTRAPSERVERS=kafka:9092'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  dogpalsforum-mysql:
-    image: 'mysql:8.0.20'
-    environment:
-      - MYSQL_USER=root
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=dogpalsforum
-    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+ 
   dogpalsforum-elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
     environment:
       - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
       - discovery.type=single-node
 
-  zookeeper:
-    extends:
-      file: kafka.yml
-      service: zookeeper
-  kafka:
-    extends:
-      file: kafka.yml
-      service: kafka
   jhipster-registry:
     extends:
       file: jhipster-registry.yml
