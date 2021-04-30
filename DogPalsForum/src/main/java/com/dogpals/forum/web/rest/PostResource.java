@@ -3,14 +3,22 @@ package com.dogpals.forum.web.rest;
 import com.dogpals.forum.service.PostService;
 import com.dogpals.forum.web.rest.errors.BadRequestAlertException;
 import com.dogpals.forum.service.dto.PostDTO;
+import com.dogpals.forum.security.SecurityUtils;
+import com.dogpals.forum.domain.Post;
 
 import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -54,10 +62,21 @@ public class PostResource {
         if (postDTO.getId() != null) {
             throw new BadRequestAlertException("A new post cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.info("test tese test", userId.get());
+        log.debug("REST create set Posts to userId : {}", userId.get());
+        postDTO.setUserId(userId.get().intValue());
         PostDTO result = postService.save(postDTO);
         return ResponseEntity.created(new URI("/api/posts/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+
+        
     }
 
     /**
@@ -75,6 +94,15 @@ public class PostResource {
         if (postDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST update set Posts to userId : {}", userId.get());
+        postDTO.setUserId(userId.get().intValue());
         PostDTO result = postService.save(postDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, postDTO.getId().toString()))
@@ -86,12 +114,22 @@ public class PostResource {
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of posts in body.
      */
+    // @GetMapping("/posts")
+    // public List<PostDTO> getAllPosts() {
+    //     log.debug("REST request to get all Posts");
+    //     Optional<Long> userId = SecurityUtils.getUserId();
+    //     if (userId.isPresent()) {
+    //         log.info("User Id--->{}", userId.get());
+    //     }else {
+    //         log.info("No userId present.");
+    //     }
+    //     return postService.findAll(userId.get().intValue());
+    // }
     @GetMapping("/posts")
     public List<PostDTO> getAllPosts() {
         log.debug("REST request to get all Posts");
         return postService.findAll();
     }
-
     /**
      * {@code GET  /posts/:id} : get the "id" post.
      *

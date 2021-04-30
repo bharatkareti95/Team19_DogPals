@@ -67,7 +67,13 @@ public class PostService {
             .map(postMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
+@Transactional(readOnly = true)
+    public List<PostDTO> findAll(Integer userId) {
+        log.debug("Request to get all Posts for user : {}", userId);
+        return postRepository.findByUserId(userId).stream()
+            .map(postMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 
     /**
      * Get one post by id.
