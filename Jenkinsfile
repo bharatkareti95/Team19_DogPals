@@ -16,23 +16,23 @@ pipeline {
     stages {
         //Build docker image from blueprint in dockerfile. The arguments passed are: dockerRepoName:imageTag
         //Note that imageTag has build number variable for release management
-	    stage('Building training image'){
+	    stage('Building training image and pushing it to registry'){
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_training$BUILD_NUMBER"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training:$BUILD_NUMBER"
 			    }
 		    }
 	    }
-	    stage('Building forum image'){
+	    stage('Building forum image and pushing it to registry'){
 		    steps {
 			    dir('DogPalsForum') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_forum$BUILD_NUMBER"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training:$BUILD_NUMBER"
 			    }
 		    }
 	    }
-	    stage('Building front-end image'){
+	    stage('Building front-end image and pushing it to registry'){
 		    steps {
 			    dir('dogPals') {
 				    sh "pwd"
@@ -44,10 +44,12 @@ pipeline {
 		    
      
         //Retrieve image from dockerhub and run container on port 9000 with the same name as the image
-        stage('Run the application') {
+        stage('Deploying via docker-compose') {
             steps {
-                dir('DogPalsTraining') {
-                    sh 'docker-compose -f src/main/docker/app.yml up -d'
+                dir('docker-compose') {
+			sh 'docker-compose down --volumes'
+			sh 'docker-compose up'
+                    //sh 'docker-compose -f src/main/docker/app.yml up -d'
                 } 
             }  
         } 
