@@ -14,11 +14,6 @@ import { AlertError } from 'app/shared/alert/alert-error.model';
 import { IForum } from 'app/shared/model/DogPalsForum/forum.model';
 import { ForumService } from 'app/entities/DogPalsForum/forum/forum.service';
 
-import { AccountService } from 'app/core/auth/account.service';
-import { Account } from 'app/core/user/account.model';
-import { UserService } from 'app/core/user/user.service';
-import { IUser } from 'app/core/user/user.model';
-
 @Component({
   selector: 'jhi-post-update',
   templateUrl: './post-update.component.html',
@@ -26,8 +21,6 @@ import { IUser } from 'app/core/user/user.model';
 export class PostUpdateComponent implements OnInit {
   isSaving = false;
   forums: IForum[] = [];
-  account: Account | null = null;
-  user: IUser | null = null;
 
   editForm = this.fb.group({
     id: [],
@@ -35,7 +28,6 @@ export class PostUpdateComponent implements OnInit {
     content: [null, [Validators.required]],
     date: [null, [Validators.required]],
     forumId: [],
-    userId: [],
   });
 
   constructor(
@@ -44,9 +36,7 @@ export class PostUpdateComponent implements OnInit {
     protected postService: PostService,
     protected forumService: ForumService,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder,
-    private accountService: AccountService,
-    private userService: UserService
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -60,10 +50,6 @@ export class PostUpdateComponent implements OnInit {
 
       this.forumService.query().subscribe((res: HttpResponse<IForum[]>) => (this.forums = res.body || []));
     });
-    this.accountService.identity().subscribe(account => (this.account = account));
-    this.userService.find(this.account?.login || '').subscribe(user => {
-      this.user = user;
-    });
   }
 
   updateForm(post: IPost): void {
@@ -73,7 +59,6 @@ export class PostUpdateComponent implements OnInit {
       content: post.content,
       date: post.date ? post.date.format(DATE_TIME_FORMAT) : null,
       forumId: post.forumId,
-      userId: post.userId,
     });
   }
 
@@ -115,8 +100,6 @@ export class PostUpdateComponent implements OnInit {
       content: this.editForm.get(['content'])!.value,
       date: this.editForm.get(['date'])!.value ? moment(this.editForm.get(['date'])!.value, DATE_TIME_FORMAT) : undefined,
       forumId: this.editForm.get(['forumId'])!.value,
-      // userId: this.editForm.get(['userId'])!.value,
-      userId: 0,
     };
   }
 

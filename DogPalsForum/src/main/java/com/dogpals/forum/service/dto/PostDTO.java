@@ -22,8 +22,6 @@ public class PostDTO implements Serializable {
     @NotNull
     private Instant date;
 
-    @NotNull
-    private Integer userId;
 
     private Long forumId;
     
@@ -67,14 +65,6 @@ public class PostDTO implements Serializable {
         this.forumId = forumId;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,7 +91,6 @@ public class PostDTO implements Serializable {
             ", content='" + getContent() + "'" +
             ", date='" + getDate() + "'" +
             ", forumId=" + getForumId() +
-             ", userId=" + getUserId() +
-           "}";
+            "}";
     }
 }

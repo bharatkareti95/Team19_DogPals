@@ -10,7 +10,6 @@ export interface IPost {
   comments?: IComment[];
   ratings?: IRating[];
   forumId?: number;
-  userId?: number;
 }
 
 export class Post implements IPost {
@@ -21,7 +20,6 @@ export class Post implements IPost {
     public date?: Moment,
     public comments?: IComment[],
     public ratings?: IRating[],
-    public forumId?: number,
-    public userId?: number
+    public forumId?: number
   ) {}
 }

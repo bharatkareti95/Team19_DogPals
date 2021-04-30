@@ -34,7 +34,6 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
 /**
  * Integration tests for the {@link PostResource} REST controller.
  */
@@ -52,9 +51,6 @@ public class PostResourceIT {
 
     private static final Instant DEFAULT_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
-
-    private static final Integer DEFAULT_USER_ID = 1;
-    private static final Integer UPDATED_USER_ID = 2;
 
     @Autowired
     private PostRepository postRepository;
@@ -91,9 +87,8 @@ public class PostResourceIT {
         Post post = new Post()
             .title(DEFAULT_TITLE)
             .content(DEFAULT_CONTENT)
-            .date(DEFAULT_DATE)
-            .userId(DEFAULT_USER_ID);
-     return post;
+            .date(DEFAULT_DATE);
+        return post;
     }
     /**
      * Create an updated entity for this test.
@@ -105,8 +100,7 @@ public class PostResourceIT {
         Post post = new Post()
             .title(UPDATED_TITLE)
             .content(UPDATED_CONTENT)
-            .date(UPDATED_DATE)
-            .userId(UPDATED_USER_ID);
+            .date(UPDATED_DATE);
         return post;
     }
 
@@ -133,7 +127,6 @@ public class PostResourceIT {
         assertThat(testPost.getTitle()).isEqualTo(DEFAULT_TITLE);
         assertThat(testPost.getContent()).isEqualTo(DEFAULT_CONTENT);
         assertThat(testPost.getDate()).isEqualTo(DEFAULT_DATE);
-        assertThat(testPost.getUserId()).isEqualTo(DEFAULT_USER_ID);
 
         // Validate the Post in Elasticsearch
         verify(mockPostSearchRepository, times(1)).save(testPost);
@@ -216,8 +209,7 @@ public class PostResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(post.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID)));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
     
     @Test
@@ -233,8 +225,7 @@ public class PostResourceIT {
             .andExpect(jsonPath("$.id").value(post.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
             .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
-            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()))
-            .andExpect(jsonPath("$.userId").value(DEFAULT_USER_ID));
+            .andExpect(jsonPath("$.date").value(DEFAULT_DATE.toString()));
     }
     @Test
     @Transactional
@@ -259,8 +250,7 @@ public class PostResourceIT {
         updatedPost
             .title(UPDATED_TITLE)
             .content(UPDATED_CONTENT)
-            .date(UPDATED_DATE)
-            .userId(UPDATED_USER_ID);
+            .date(UPDATED_DATE);
         PostDTO postDTO = postMapper.toDto(updatedPost);
 
         restPostMockMvc.perform(put("/api/posts")
@@ -275,7 +265,6 @@ public class PostResourceIT {
         assertThat(testPost.getTitle()).isEqualTo(UPDATED_TITLE);
         assertThat(testPost.getContent()).isEqualTo(UPDATED_CONTENT);
         assertThat(testPost.getDate()).isEqualTo(UPDATED_DATE);
-        assertThat(testPost.getUserId()).isEqualTo(UPDATED_USER_ID);
 
         // Validate the Post in Elasticsearch
         verify(mockPostSearchRepository, times(1)).save(testPost);
@@ -340,7 +329,6 @@ public class PostResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(post.getId().intValue())))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
             .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
-            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())))
-            .andExpect(jsonPath("$.[*].userId").value(hasItem(DEFAULT_USER_ID)));
+            .andExpect(jsonPath("$.[*].date").value(hasItem(DEFAULT_DATE.toString())));
     }
 }

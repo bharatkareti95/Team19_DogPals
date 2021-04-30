@@ -8,10 +8,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IPost } from 'app/shared/model/DogPalsForum/post.model';
 import { PostService } from './post.service';
 import { PostDeleteDialogComponent } from './post-delete-dialog.component';
-import { AccountService } from 'app/core/auth/account.service';
-import { Account } from 'app/core/user/account.model';
-import { UserService } from 'app/core/user/user.service';
-import { IUser } from 'app/core/user/user.model';
 
 @Component({
   selector: 'jhi-post',
@@ -21,16 +17,13 @@ export class PostComponent implements OnInit, OnDestroy {
   posts?: IPost[];
   eventSubscriber?: Subscription;
   currentSearch: string;
-  account: Account | null = null;
-  user: IUser | null = null;
+
   constructor(
     protected postService: PostService,
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
-    protected activatedRoute: ActivatedRoute,
-    private accountService: AccountService,
-    private userService: UserService
+    protected activatedRoute: ActivatedRoute
   ) {
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.queryParams['search']
@@ -47,17 +40,8 @@ export class PostComponent implements OnInit, OnDestroy {
         .subscribe((res: HttpResponse<IPost[]>) => (this.posts = res.body || []));
       return;
     }
-    this.accountService.identity;
 
-    if (this.isAuthority('ROLE_USER')) {
-      if (this.isAuthority('ROLE_ADMIN')) {
-        this.postService.query({}).subscribe((res: HttpResponse<IPost[]>) => (this.posts = res.body || []));
-      } else {
-        this.postService.query({}).subscribe((res: HttpResponse<IPost[]>) => (this.posts = res.body || []));
-      }
-    } else {
-      this.postService.query().subscribe((res: HttpResponse<IPost[]>) => (this.posts = res.body || []));
-    }
+    this.postService.query().subscribe((res: HttpResponse<IPost[]>) => (this.posts = res.body || []));
   }
 
   search(query: string): void {
@@ -68,10 +52,6 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadAll();
     this.registerChangeInPosts();
-    this.accountService.identity().subscribe(account => (this.account = account));
-    this.userService.find(this.account?.login || '').subscribe(user => {
-      this.user = user;
-    });
   }
 
   ngOnDestroy(): void {
@@ -100,9 +80,5 @@ export class PostComponent implements OnInit, OnDestroy {
   delete(post: IPost): void {
     const modalRef = this.modalService.open(PostDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.post = post;
-  }
-
-  isAuthority(authorities: string[] | string): boolean {
-    return this.accountService.hasAnyAuthority(authorities);
   }
 }
