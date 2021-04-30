@@ -28,7 +28,7 @@ pipeline {
 		    steps {
 			    dir('DogPalsForum') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training:$BUILD_NUMBER"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum:$BUILD_NUMBER"
 			    }
 		    }
 	    }
@@ -36,7 +36,7 @@ pipeline {
 		    steps {
 			    dir('dogPals') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -DfinalName=dogpals_frontend$BUILD_NUMBER"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:$BUILD_NUMBER"
 			    }
 		    }
 	    }
