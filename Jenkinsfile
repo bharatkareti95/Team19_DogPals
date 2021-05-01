@@ -28,7 +28,7 @@ pipeline {
 		    steps {
 			    dir('DogPalsForum') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=[$BUILD_NUMBER,latest]"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=$BUILD_NUMBER,latest"
 			    }
 		    }
 	    }
