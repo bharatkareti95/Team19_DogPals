@@ -24,23 +24,23 @@ pipeline {
 		//	    }
 		//    }
 	    //}
-	    //stage('Building forum image and pushing it to registry'){
-		//    steps {
-		//	    dir('DogPalsForum') {
-		//		    sh "pwd"
-		//		    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum:$BUILD_NUMBER"
-		//	    }
-		//    }
-	    //}
-	    stage('Building front-end image and pushing it to registry'){
+	    stage('Building forum image and pushing it to registry'){
 		    steps {
-			    dir('dogPals') {
+			    dir('DogPalsForum') {
 				    sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:$BUILD_NUMBER"
-			            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
-                        }
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=[$BUILD_NUMBER,latest]"
+			    }
 		    }
 	    }
+	//    stage('Building front-end image and pushing it to registry'){
+	//	    steps {
+	//		    dir('dogPals') {
+	//			    sh "pwd"
+	//			    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:$BUILD_NUMBER"
+	//		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
+           //             }
+	//	    }
+	  //  }
 	    
 		    
      
