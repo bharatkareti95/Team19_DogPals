@@ -16,14 +16,14 @@ pipeline {
     stages {
         //Build docker image from blueprint in dockerfile. The arguments passed are: dockerRepoName:imageTag
         //Note that imageTag has build number variable for release management
-	    //stage('Building training image and pushing it to registry'){
-		//    steps {
-		//	    dir('DogPalsTraining') {
-		//		    sh "pwd"
-		//		    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training:$BUILD_NUMBER"
-		//	    }
-		//    }
-	    //}
+	    stage('Building training image and pushing it to registry'){
+		    steps {
+			    dir('DogPalsTraining') {
+				    sh "pwd"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training -Djib.to.tags=$BUILD_NUMBER,latest"
+			    }
+		    }
+	    }
 	    stage('Building forum image and pushing it to registry'){
 		    steps {
 			    dir('DogPalsForum') {
@@ -32,15 +32,15 @@ pipeline {
 			    }
 		    }
 	    }
-	//    stage('Building front-end image and pushing it to registry'){
-	//	    steps {
-	//		    dir('dogPals') {
-	//			    sh "pwd"
-	//			    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:$BUILD_NUMBER"
+	    stage('Building front-end image and pushing it to registry'){
+		    steps {
+			    dir('dogPals') {
+				    sh "pwd"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
 	//		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
-           //             }
-	//	    }
-	  //  }
+                        }
+		    }
+	    }
 	    
 		    
      
