@@ -20,6 +20,7 @@ pipeline {
 		    steps {
 			    dir('DogPalsTraining') {
 				    sh "pwd"
+
 				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training -Djib.to.tags=$BUILD_NUMBER,latest"
 			    }
 		    }
@@ -36,7 +37,7 @@ pipeline {
 		    steps {
 			    dir('dogPals') {
 				   sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
+				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest  -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
 	//		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
                         }
 		    }
@@ -48,10 +49,10 @@ pipeline {
         stage('Deploying via docker-compose') {
             steps {
                 dir('docker-compose') {
-                       sh "pwd"
-                        System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
+                      // sh "pwd"
+                      //  System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 			sh 'docker-compose down --volumes'
-			sh 'docker-compose up'
+			sh 'docker-compose up  -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400'
                     //sh 'docker-compose -f src/main/docker/app.yml up -d'
                 } 
             }  
