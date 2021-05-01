@@ -35,7 +35,7 @@ pipeline {
 	    stage('Building front-end image and pushing it to registry'){
 		    steps {
 			    dir('dogPals') {
-				    sh "pwd"
+				   sh "pwd"
 				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
 	//		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
                         }
@@ -48,6 +48,7 @@ pipeline {
         stage('Deploying via docker-compose') {
             steps {
                 dir('docker-compose') {
+                       sh "pwd"
                         System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 			sh 'docker-compose down --volumes'
 			sh 'docker-compose up'
