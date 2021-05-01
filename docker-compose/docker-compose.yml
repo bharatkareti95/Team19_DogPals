@@ -16,12 +16,6 @@ services:
     ports:
       - '8080:8080'
 
-  dogpals-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
-
   dogpalstraining:
     image: bharatkareti/dogpals_training
     environment:
@@ -35,12 +29,7 @@ services:
       - 'SPRING_DATA_JEST_URI=http://dogpalstraining-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalstraining-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  
-  dogpalstraining-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
+
 
   dogpalsforum:
     image:  bharatkareti/dogpals_forum
@@ -55,12 +44,7 @@ services:
       - 'SPRING_DATA_JEST_URI=http://dogpalsforum-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalsforum-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
- 
-  dogpalsforum-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.8.8'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
+
 
   jhipster-registry:
     extends:
