@@ -11,6 +11,9 @@
       "delete": {
         "question": "Are you sure you want to delete Training {{ id }}?"
       },
+      "book": {
+        "question": "Are you sure you want to book Training {{ title }} on {{ date }} at {{ location }} from {{ startTime }} to {{ endTime }} for {{ price }}?"
+      },
       "detail": {
         "title": "Training"
       },
@@ -26,7 +29,8 @@
       "popularity": "Popularity",
       "popular": "Popular",
       "booking": "Booking",
-      "userId": "User ID"
+      "userId": "User ID",
+      "userno": "No of Booking"
     }
   },
   "dogPalsTrainingApp": {

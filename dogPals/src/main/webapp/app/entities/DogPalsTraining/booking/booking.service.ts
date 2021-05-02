@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption, Search } from 'app/shared/util/request-util';
-import { IBooking } from 'app/shared/model/DogPalsTraining/booking.model';
+import { IBooking , Booking} from 'app/shared/model/DogPalsTraining/booking.model';
 
 type EntityResponseType = HttpResponse<IBooking>;
 type EntityArrayResponseType = HttpResponse<IBooking[]>;
+type EntityArrayResponseTypeBooking = HttpResponse<Booking[]>;
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
@@ -32,7 +33,10 @@ export class BookingService {
     const options = createRequestOption(req);
     return this.http.get<IBooking[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
-
+  queryBookingForUserView(req?: any): Observable<EntityArrayResponseTypeBooking> {
+    const options = createRequestOption(req);
+    return this.http.get<Booking[]>(this.resourceUrl, { params: options, observe: 'response' });
+  }
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

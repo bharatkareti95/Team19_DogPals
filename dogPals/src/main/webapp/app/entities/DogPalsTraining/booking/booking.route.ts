@@ -39,7 +39,7 @@ export const bookingRoute: Routes = [
     path: '',
     component: BookingComponent,
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingBooking.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const bookingRoute: Routes = [
       booking: BookingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingBooking.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const bookingRoute: Routes = [
       booking: BookingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingBooking.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const bookingRoute: Routes = [
       booking: BookingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER, Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingBooking.home.title',
     },
     canActivate: [UserRouteAccessService],

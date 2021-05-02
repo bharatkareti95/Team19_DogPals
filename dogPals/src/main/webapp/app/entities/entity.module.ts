@@ -16,10 +16,10 @@ import { RouterModule } from '@angular/router';
         path: 'popular',
         loadChildren: () => import('./DogPalsTraining/popular/popular.module').then(m => m.DogPalsTrainingPopularModule),
       },
-      {
-        path: 'information',
-        loadChildren: () => import('./information/information.module').then(m => m.DogPalsInformationModule),
-      },
+      // {
+      //   path: 'information',
+      //   loadChildren: () => import('./information/information.module').then(m => m.DogPalsInformationModule),
+      // },
       {
         path: 'forum',
         loadChildren: () => import('./DogPalsForum/forum/forum.module').then(m => m.DogPalsForumForumModule),

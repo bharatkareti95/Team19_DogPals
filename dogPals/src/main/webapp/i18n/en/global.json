@@ -107,7 +107,8 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "book": "Book"
     },
     "detail": {
       "field": "Field",
@@ -116,6 +117,11 @@
     "delete": {
       "title": "Confirm delete operation"
     },
+
+    "book": {
+      "title": "Confirm Booking?"
+    },
+
     "validation": {
       "required": "This field is required.",
       "minlength": "This field is required to be at least {{ min }} characters.",
@@ -139,6 +145,8 @@
     "userexists": "Login name already used!",
     "emailexists": "Email is already in use!",
     "idexists": "A new {{ entityName }} cannot already have an ID",
+    "problemowner": "There is an issue while processing {{ entityName }}",
+    "fullcapacity": "Training Capacity is full!",
     "idnull": "Invalid ID",
     "file": {
       "could.not.extract": "Could not extract file",

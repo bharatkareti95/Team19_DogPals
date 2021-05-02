@@ -1,14 +1,27 @@
-<div>
+<div *jhiHasAnyAuthority="'ROLE_USER'">
     <h2 id="page-heading">
         <span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.home.title">Bookings</span>
-
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-booking" [routerLink]="['/booking/new']">
+        <!-- Testing for Calendar -->
+        <!-- <div calendar class="calendar ng-isolate-scope" id="calendar"> -->
+            <!-- <svg class="Rectangle_281">
+                <rect id="Rectangle_281" rx="25" ry="25" x="0" y="0" width="527" height="50"></rect>
+            </svg> -->
+            <!-- <div class="header"> -->
+                <!-- <div class="month">April 2021</div><div class="right"></div><div class="left"></div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+        <!-- Testing for Calendar -->
+        <!-- <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-booking" [routerLink]="['/booking/new']">
             <fa-icon icon="plus"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="dogPalsApp.dogPalsTrainingBooking.home.createLabel">
             Create a new Booking
             </span>
-        </button>
+        </button> -->
     </h2>
+    <!-- <h2 id="page-heading2">
+        <div calendar class="calendar" id="calendar"></div>
+    </h2> -->
+
 
     <jhi-alert-error></jhi-alert-error>
 
@@ -42,21 +55,36 @@
                 <tr>
                     <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
                     <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status">Status</span></th>
-                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.userId">User Id</span></th>
+                    <!-- <th *jhiHasAnyAuthority="'ROLE_USER'" scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.userId">User Id</span></th> -->
                     <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training">Training</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.date">Date</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.capacity">Capacity</span></th>
+
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let booking of bookings ;trackBy: trackId">
-                    <td><a [routerLink]="['/booking', booking.id, 'view']">{{ booking.id }}</a></td>
-                    <td jhiTranslate="{{ 'dogPalsApp.BookStatus.' + booking.status }}">{{ booking.status }}</td>
-                    <td>{{ booking.userId }}</td>
-                    <td>
-                        <div *ngIf="booking.trainingId">
-                            <a [routerLink]="['/training', booking.trainingId , 'view']" >{{ booking.trainingId }}</a>
+                    <!-- <td><a [routerLink]="['/booking', booking.id, 'view']">{{ booking.id }}</a></td> -->
+                    <td>{{ booking.id }}</td>
+                    <td>{{ booking.status }}</td> 
+                    <td> <a [routerLink]="['/training', booking?.training?.id , 'view']" >{{ booking?.training?.title }}</a></td>
+                    <td>{{ booking?.training?.date  | date:'fullDate'}}</td>
+                    <td>{{ booking?.training?.capacity }}</td>
+
+
+                    <!-- <td>
+                        <div *ngFor="let training of trainings ;trackBy: trackTrainingId">
+                            <span *ngIf="booking.trainingId === training.id" >{{ training.title }}</span>
                         </div>
                     </td>
+                    <td>
+                        <div *ngFor="let training of trainings ;trackBy: trackTrainingId">
+                            <span *ngIf="booking.trainingId === training.id" >{{ training.title }}</span>
+                        </div>
+                    </td> -->
+
+
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
@@ -70,18 +98,65 @@
                                     [routerLink]="['/booking', booking.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                <span  class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                             </button>
 
                             <button *jhiHasAnyAuthority="'ROLE_USER'" type="submit" (click)="delete(booking)"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                <span  class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                             </button>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+
+<div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+    <h2 id="page-heading">
+        <span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.home.trainerTitle">Bookings</span>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trainings?.length === 0">
+        <span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.home.notFound" [translateValues]="{ id: user?.id }">No bookings found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trainings && trainings.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.status">Status</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingBooking.training">Training</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.date">Date</span></th>
+                    <th scope="col" ><span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.userno">Capacity</span></th>
+
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+             <tbody *ngFor="let training of trainings ;trackBy: trackTrainingId">
+                <tr >
+                    <td>{{ training.id }}</td>
+                    <div *ngFor="let property of trainingStatus | keys">
+                        <td *ngIf="property.value.key === training.id "> {{property.value.value}} </td>
+                    </div>
+                    
+                    <td>{{ training.title }}</a></td>
+                    <td>{{ training.date  | date:'fullDate'}}</td>
+                    <div *ngFor="let property of noOfuser | keys ">
+                        <td *ngIf="property.value.key === training.id">
+                            <a [routerLink]="['/training', training.id , 'view']" >{{ property.value.value }}</a>
+                        </td>
+                    </div>
+                    
+                </tr>
+            </tbody> 
+        </table>
+
     </div>
 </div>

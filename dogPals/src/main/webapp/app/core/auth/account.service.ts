@@ -16,6 +16,7 @@ export class AccountService {
   private userIdentity: Account | null = null;
   private authenticationState = new ReplaySubject<Account | null>(1);
   private accountCache$?: Observable<Account | null>;
+  account: Account | never[] = [];
 
   constructor(
     private languageService: JhiLanguageService,
@@ -90,6 +91,10 @@ export class AccountService {
 
   private fetch(): Observable<Account> {
     return this.http.get<Account>(SERVER_API_URL + 'api/account');
+  }
+  getUserDetails(): object  {
+  // .subscribe((res: HttpResponse<IBooking[]>) => (this.bookings = res.body || []));
+  return this.fetch().subscribe(account => (this.account = account));
   }
 
   private navigateToStoredUrl(): void {
