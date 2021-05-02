@@ -33,15 +33,15 @@ pipeline {
 		// 	    }
 		//     }
 	    // }
-	    stage('Building front-end image and pushing it to registry'){
-		    steps {
-			    dir('dogPals') {
-				   sh "pwd"
-				    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest  -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
-	//		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
-                        }
-		    }
-	    }
+	//     stage('Building front-end image and pushing it to registry'){
+	// 	    steps {
+	// 		    dir('dogPals') {
+	// 			   sh "pwd"
+	// 			    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest  -Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=86400"
+	// //		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
+    //                     }
+	// 	    }
+	//     }
 	    
 		    
      
