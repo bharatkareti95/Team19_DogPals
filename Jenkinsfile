@@ -52,7 +52,7 @@ pipeline {
                       // sh "pwd"
                       //  System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 			sh 'docker-compose down --volumes'
-			sh 'docker-compose up'
+			sh 'docker-compose up -d'
                     //sh 'docker-compose -f src/main/docker/app.yml up -d'
                 } 
             }  
