@@ -42,11 +42,11 @@
     <logger name="io.undertow" level="WARN"/>
     <logger name="io.undertow.websockets.jsr" level="ERROR"/>
     <logger name="org.ehcache" level="WARN"/>
-    <logger name="org.apache" level="WARN"/>
-    <logger name="org.apache.kafka" level="INFO"/>
+    <logger name="org.apache" level="OFF"/>
+    <logger name="org.apache.kafka" level="OFF"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
     <logger name="org.bson" level="WARN"/>
-    <logger name="org.elasticsearch" level="WARN"/>
+    <logger name="org.elasticsearch" level="OFF"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>

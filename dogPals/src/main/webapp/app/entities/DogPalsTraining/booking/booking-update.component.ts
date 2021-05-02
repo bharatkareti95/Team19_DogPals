@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 import { IBooking, Booking } from 'app/shared/model/DogPalsTraining/booking.model';
 import { BookingService } from './booking.service';
-import { ITraining } from 'app/shared/model/DogPalsTraining/training.model';
+import { ITraining, Training } from 'app/shared/model/DogPalsTraining/training.model';
 import { TrainingService } from 'app/entities/DogPalsTraining/training/training.service';
 
 @Component({
@@ -83,7 +83,10 @@ export class BookingUpdateComponent implements OnInit {
   }
 
   protected onSaveSuccess(): void {
+    alert( "HERE" );
     this.isSaving = false;
+    this.createFormForTraining();
+    // updateTraining();
     this.previousState();
   }
 
@@ -94,4 +97,22 @@ export class BookingUpdateComponent implements OnInit {
   trackById(index: number, item: ITraining): any {
     return item.id;
   }
+
+  private createFormForTraining() : ITraining {
+      const updateEntity = new Training();
+     
+     if ( this.editForm.get(['trainingId'])!.value !== undefined ){
+      updateEntity === this.trainings.find((training : ITraining)=> training.id === this.editForm.get(['trainingId'])!.value)
+      alert("INITIAL CAPACITY FOR " + updateEntity.id + " Is " + updateEntity.capacity)
+      if ( updateEntity.capacity !== undefined &&  updateEntity.capacity !== 0 ){
+        updateEntity.capacity = (updateEntity.capacity?.valueOf() - 1 ) ;
+      }
+     }
+     alert("Updated CAPACITY FOR " + updateEntity.id + " Is " + updateEntity.capacity)
+     return updateEntity;
+  }
 }
+ 
+
+
+

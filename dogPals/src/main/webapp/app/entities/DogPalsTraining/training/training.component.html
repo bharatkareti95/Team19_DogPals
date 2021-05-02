@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="dogPalsApp.dogPalsTrainingTraining.home.title">Trainings</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-training" [routerLink]="['/training/new']">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-training" [routerLink]="['/training/new']">
             <fa-icon icon="plus"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="dogPalsApp.dogPalsTrainingTraining.home.createLabel">
             Create a new Training
@@ -68,7 +68,7 @@
                     <td>{{ training.capacity }}</td>
                     <td>{{ training.popularity }}</td>
                     <td class="text-right">
-                        <div class="btn-group" *ngIf="validateUseIDvsTrainingID(training.userId)" >
+                        <div class="btn-group" >
                             <button type="submit"
                                     [routerLink]="['/training', training.id, 'view']"
                                     class="btn btn-info btn-sm">
@@ -76,18 +76,26 @@
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                             </button>
 
-                            <button type="submit"
+                            <!-- <button type="submit"
                                     [routerLink]="['/training', training.id, 'edit']"
                                     class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
+                            </button> -->
 
-                            <button type="submit" (click)="delete(training)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            <button *jhiHasAnyAuthority="'ROLE_USER'" type="submit"
+                                    [routerLink]="['/training', training.id, 'view']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.book">Book</span>
                             </button>
+                            <ng-container *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                                <button *ngIf="validateUseIDvsTrainingID(training.userId)" type="submit" (click)="delete(training)"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon icon="times"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </ng-container>
                         </div>
                     </td>
                 </tr>

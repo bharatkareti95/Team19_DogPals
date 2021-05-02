@@ -16,6 +16,9 @@ export class TrainingService {
   public resourceUrl = SERVER_API_URL + 'services/dogpalstraining/api/trainings';
   public resourceSearchUrl = SERVER_API_URL + 'services/dogpalstraining/api/_search/trainings';
 
+  public resourceGetUserURL = SERVER_API_URL +'services/dogpalstraining/api/trainings/userId';
+  public resourceTraningBookingUserURL = SERVER_API_URL +'services/dogpalstraining/api/trainings/bookings';
+
   constructor(protected http: HttpClient) {}
 
   create(training: ITraining): Observable<EntityResponseType> {
@@ -54,6 +57,14 @@ export class TrainingService {
     return this.http
       .get<ITraining[]>(this.resourceSearchUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+  getuser(): Observable<EntityArrayResponseType> {
+    // const options = createRequestOption(req);
+    return this.http.get<ITraining[]>(this.resourceGetUserURL,{ observe: 'response' });
+  }
+
+  getTrainingsBookings() : Observable<EntityArrayResponseType> {
+    return this.http.get<ITraining[]>(this.resourceTraningBookingUserURL,{ observe: 'response' });
   }
 
   protected convertDateFromClient(training: ITraining): ITraining {

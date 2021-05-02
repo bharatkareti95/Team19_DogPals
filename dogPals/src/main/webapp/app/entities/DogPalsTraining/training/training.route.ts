@@ -52,7 +52,7 @@ export const trainingRoute: Routes = [
       training: TrainingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.USER , Authority.ADMIN ],
       pageTitle: 'dogPalsApp.dogPalsTrainingTraining.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -64,7 +64,7 @@ export const trainingRoute: Routes = [
       training: TrainingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingTraining.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -76,7 +76,7 @@ export const trainingRoute: Routes = [
       training: TrainingResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'dogPalsApp.dogPalsTrainingTraining.home.title',
     },
     canActivate: [UserRouteAccessService],
