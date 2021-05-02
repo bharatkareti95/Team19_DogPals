@@ -4,6 +4,9 @@ import { JhiDataUtils } from 'ng-jhipster';
 
 import { IPost } from 'app/shared/model/DogPalsForum/post.model';
 
+import { PostDeleteDialogComponent } from './post-delete-dialog.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'jhi-post-detail',
   templateUrl: './post-detail.component.html',
@@ -11,7 +14,7 @@ import { IPost } from 'app/shared/model/DogPalsForum/post.model';
 export class PostDetailComponent implements OnInit {
   post: IPost | null = null;
 
-  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ post }) => (this.post = post));
@@ -27,5 +30,9 @@ export class PostDetailComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+  delete(post: IPost): void {
+    const modalRef = this.modalService.open(PostDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
+    modalRef.componentInstance.post = post;
   }
 }

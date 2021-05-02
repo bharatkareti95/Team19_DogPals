@@ -55,16 +55,16 @@
                                 <span>{{ post.date | date:'medium' }}</span>
                             </dd> 
                         </div>
-                        <div class="btn-group">
-                            <button type="submit" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
+                        <!-- <div class="btn-group">
+                            <button type="submit" *jhiHasAnyAuthority="'ROLE_USER'" [routerLink]="['/post', post.id, 'edit']" class="btn btn-primary btn-sm">
                                 <fa-icon icon="pencil-alt"></fa-icon>
                                 <span class="d-none d-md-inline">Edit</span>
                             </button>
-                            <button type="submit" (click)="delete(post)" class="btn btn-danger btn-sm">
+                            <button type="submit" *jhiHasAnyAuthority="'ROLE_USER'" (click)="delete(post)" class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

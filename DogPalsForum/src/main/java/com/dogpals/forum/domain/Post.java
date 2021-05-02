@@ -52,6 +52,10 @@ public class Post implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "posts", allowSetters = true)
     private Forum forum;
+    
+    @NotNull
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -126,6 +130,19 @@ public class Post implements Serializable {
         this.comments = comments;
     }
 
+public Integer getUserId() {
+        return userId;
+    }
+
+    public Post userId(Integer userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public Set<Rating> getRatings() {
         return ratings;
     }
@@ -189,6 +206,7 @@ public class Post implements Serializable {
             ", title='" + getTitle() + "'" +
             ", content='" + getContent() + "'" +
             ", date='" + getDate() + "'" +
-            "}";
+            ", userId=" + getUserId() +
+          "}";
     }
 }

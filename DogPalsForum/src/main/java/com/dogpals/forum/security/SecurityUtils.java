@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import com.dogpals.forum.security.jwt.SamAuthenticationToken;
 /**
  * Utility class for Spring Security.
  */
@@ -37,6 +38,18 @@ public final class SecurityUtils {
             return (String) authentication.getPrincipal();
         }
         return null;
+    }
+
+    public static Optional<Long> getUserId() {
+    SecurityContext securityContext = SecurityContextHolder.getContext();
+    return Optional.ofNullable(securityContext.getAuthentication())
+        .map(authentication -> {
+            if (authentication instanceof SamAuthenticationToken) {
+                SamAuthenticationToken samAuthenticationToken = (SamAuthenticationToken) authentication;
+                return samAuthenticationToken.getUserId();
+            }
+            return null;
+        });
     }
 
 
