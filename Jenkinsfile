@@ -46,16 +46,25 @@ pipeline {
 		    
      
         //Retrieve image from dockerhub and run container on port 9000 with the same name as the image
-        stage('Deploying via docker-compose') {
-            steps {
-                dir('docker-compose') {
-                      // sh "pwd"
-                      //  System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
-			sh 'docker-compose down --volumes'
-			sh 'docker-compose up -d'
-                    //sh 'docker-compose -f src/main/docker/app.yml up -d'
-                } 
-            }  
-        } 
+        // stage('Deploying via docker-compose') {
+        //     steps {
+        //         dir('docker-compose') {
+        //               // sh "pwd"
+        //               //  System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
+		// 			sh 'docker-compose down --volumes'
+		// 			sh 'docker-compose up -d'
+        //             //sh 'docker-compose -f src/main/docker/app.yml up -d'
+        //         } 
+        //     }  
+        // } 
+
+		stage('Pulling and Deploying front end image'){
+			steps {
+				sh'echo "Starting to deploy docker image.."'
+				sh 'docker pull bharatkareti/dogpals_frontend'
+				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_frontend | xargs -r docker stop'
+				sh 'docker run -d -p 8080:8080 bharatkareti/dogpals_frontend'
+			}
+		}
     }
 }
