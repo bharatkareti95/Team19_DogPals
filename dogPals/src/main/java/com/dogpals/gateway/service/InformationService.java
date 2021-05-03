@@ -1,4 +1,4 @@
-/**package com.dogpals.gateway.service;
+package com.dogpals.gateway.service;
 
 import com.dogpals.gateway.domain.Information;
 import com.dogpals.gateway.repository.InformationRepository;
@@ -20,7 +20,7 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 /**
  * Service Implementation for managing {@link Information}.
  */
-/**
+
 @Service
 @Transactional
 public class InformationService {
@@ -45,7 +45,7 @@ public class InformationService {
      * @param informationDTO the entity to save.
      * @return the persisted entity.
      */
-/**
+
     public InformationDTO save(InformationDTO informationDTO) {
         log.debug("Request to save Information : {}", informationDTO);
         Information information = informationMapper.toEntity(informationDTO);
@@ -61,7 +61,7 @@ public class InformationService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-/**
+
     @Transactional(readOnly = true)
     public Page<InformationDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Information");
@@ -76,7 +76,7 @@ public class InformationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-/**
+
     @Transactional(readOnly = true)
     public Optional<InformationDTO> findOne(Long id) {
         log.debug("Request to get Information : {}", id);
@@ -89,7 +89,7 @@ public class InformationService {
      *
      * @param id the id of the entity.
      */
-/**
+
     public void delete(Long id) {
         log.debug("Request to delete Information : {}", id);
         informationRepository.deleteById(id);
@@ -103,7 +103,7 @@ public class InformationService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-/**
+
     @Transactional(readOnly = true)
     public Page<InformationDTO> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Information for query {}", query);
@@ -111,4 +111,4 @@ public class InformationService {
             .map(informationMapper::toDto);
     }
 }
-*/
+
