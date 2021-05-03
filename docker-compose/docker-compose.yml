@@ -8,7 +8,7 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpals-mysql:3306/dogpals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogPals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpals-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpals-elasticsearch:9200'
@@ -24,7 +24,7 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpalstraining-mysql:3306/dogpalstraining?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogPals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpalstraining-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalstraining-elasticsearch:9200'
@@ -39,7 +39,7 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:mysql://dogpalsforum-mysql:3306/dogpalsforum?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogPals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
       - JHIPSTER_SLEEP=30
       - 'SPRING_DATA_JEST_URI=http://dogpalsforum-elasticsearch:9200'
       - 'SPRING_ELASTICSEARCH_REST_URIS=http://dogpalsforum-elasticsearch:9200'
@@ -51,25 +51,25 @@ services:
       file: jhipster-registry.yml
       service: jhipster-registry
 
-  # jhipster-elasticsearch:
-  #   extends:
-  #     file: jhipster-console.yml
-  #     service: jhipster-elasticsearch
-  # jhipster-logstash:
-  #   extends:
-  #     file: jhipster-console.yml
-  #     service: jhipster-logstash
-  #   depends_on:
-  #     - jhipster-elasticsearch
-  # jhipster-console:
-  #   extends:
-  #     file: jhipster-console.yml
-  #     service: jhipster-console
-  #   depends_on:
-  #     - jhipster-elasticsearch
-  # jhipster-import-dashboards:
-  #   extends:
-  #     file: jhipster-console.yml
-  #     service: jhipster-import-dashboards
-  #   depends_on:
-  #     - jhipster-elasticsearch
+  jhipster-elasticsearch:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-elasticsearch
+  jhipster-logstash:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-logstash
+    depends_on:
+      - jhipster-elasticsearch
+  jhipster-console:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-console
+    depends_on:
+      - jhipster-elasticsearch
+  jhipster-import-dashboards:
+    extends:
+      file: jhipster-console.yml
+      service: jhipster-import-dashboards
+    depends_on:
+      - jhipster-elasticsearch
