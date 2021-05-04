@@ -20,8 +20,8 @@ pipeline {
 		     steps {
 		 	    dir('DogPalsTraining') {
 		 		    sh "pwd"
-
-		 		    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training -Djib.to.tags=$BUILD_NUMBER,latest"
+				    sh "./mvnw -ntp -DskipTests verify jib:dockerBuild -Djib.to.image=bharatkareti/dogpals_training -Djib.to.tags=$BUILD_NUMBER,latest"
+		 		    //sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_training -Djib.to.tags=$BUILD_NUMBER,latest"
 		 	    }
 		     }
 	     }
@@ -29,7 +29,8 @@ pipeline {
 		     steps {
 		 	    dir('DogPalsForum') {
 		 		    sh "pwd"
-		 		    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=$BUILD_NUMBER,latest"
+				    sh "./mvnw -ntp -DskipTests verify jib:dockerBuild -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=$BUILD_NUMBER,latest"
+		 		    //sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_forum -Djib.to.tags=$BUILD_NUMBER,latest"
 		 	    }
 		     }
 	     }
@@ -41,7 +42,8 @@ pipeline {
 				    //script{
 					//    System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 				    //}
-	 			    sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
+				    sh "./mvnw -ntp -DskipTests verify jib:dockerBuild -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
+	 			    //sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend -Djib.to.tags=$BUILD_NUMBER,latest"
 	// //		            sh "./mvnw -DskipTests package -Pprod verify jib:build -Djib.to.image=bharatkareti/dogpals_frontend:latest"
                          }
 	 	    }

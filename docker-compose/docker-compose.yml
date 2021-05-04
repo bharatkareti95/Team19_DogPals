@@ -1,7 +1,7 @@
 version: '2'
 services:
   dogpals:
-    image:  bharatkareti/dogpals
+    image:  bharatkareti/dogpals_frontend:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
@@ -15,7 +15,7 @@ services:
       - '8080:8080'
 
   dogpalstraining:
-    image: bharatkareti/dogpals_training
+    image: bharatkareti/dogpals_training:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
@@ -28,7 +28,7 @@ services:
 
 
   dogpalsforum:
-    image:  bharatkareti/dogpals_forum
+    image:  bharatkareti/dogpals_forum:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
