@@ -37,7 +37,7 @@ pipeline {
 	 	    steps {
 	 		    dir('dogPals') {
 	 			    sh "pwd"
-				    sh "sudo -s"
+				    //sh "sudo -s"
 				    //script{
 					//    System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
 				    //}
