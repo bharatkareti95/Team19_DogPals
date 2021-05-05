@@ -1,14 +1,14 @@
-package com.dogpals.gateway.repository;
+// package com.dogpals.gateway.repository;
 
-import com.dogpals.gateway.domain.Information;
+// import com.dogpals.gateway.domain.Information;
 
-import org.springframework.data.jpa.repository.*;
-import org.springframework.stereotype.Repository;
+// import org.springframework.data.jpa.repository.*;
+// import org.springframework.stereotype.Repository;
 
-/**
- * Spring Data  repository for the Information entity.
- */
-@SuppressWarnings("unused")
-@Repository
-public interface InformationRepository extends JpaRepository<Information, Long> {
-}
+// /**
+//  * Spring Data  repository for the Information entity.
+//  */
+// @SuppressWarnings("unused")
+// @Repository
+// public interface InformationRepository extends JpaRepository<Information, Long> {
+// }
