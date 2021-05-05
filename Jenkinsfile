@@ -92,8 +92,8 @@ pipeline {
 			steps {
 				sh'echo "Starting to deploy docker image.."'
 				sh 'docker pull bharatkareti/dogpals_frontend:latest'
-				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_frontend | xargs -r docker stop'
-				sh 'docker run -d -p 8080:8080 bharatkareti/dogpals_frontend'
+				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_frontend:latest | xargs -r docker stop'
+				sh 'docker run -d -p 8080:8080 bharatkareti/dogpals_frontend:latest'
 			}
 		}
     }
