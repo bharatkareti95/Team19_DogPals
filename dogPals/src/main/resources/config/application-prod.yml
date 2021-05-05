@@ -24,7 +24,7 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      defaultZone: http://admin:${jhipster.registry.password}@172.20.0.2:8761/eureka/
+      defaultZone: http://admin:${jhipster.registry.password}@52.74.130.214:8761/eureka/
 
 management:
   metrics:
@@ -55,16 +55,16 @@ spring:
     show-sql: false
   data:
     jest:
-      uri: http://172.20.0.2:9200
+      uri: http://52.74.130.214:9200
   # see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-nosql.html#boot-features-connecting-to-elasticsearch-jest
   elasticsearch:
     rest:
-      uris: http://172.20.0.2:9200
+      uris: http://52.74.130.214:9200
   # Replace by 'prod, faker' to add the faker context and have sample data loaded in production
   liquibase:
     contexts: prod
   mail:
-    host: 172.20.0.2
+    host: 52.74.130.214
     port: 25
     username:
     password:
@@ -74,7 +74,7 @@ spring:
     sampler:
       probability: 1 # report 100% of traces
   zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
-    base-url: http://172.20.0.2:9411
+    base-url: http://52.74.130.214:9411
     enabled: false
     locator:
       discovery:
@@ -142,7 +142,7 @@ jhipster:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
       enabled: false
-      host: 172.20.0.2
+      host: 52.74.130.214
       port: 5000
       queue-size: 512
   audit-events:

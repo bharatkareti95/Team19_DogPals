@@ -1,40 +1,40 @@
 version: '2'
 services:
-  dogpals:
+  dogPals:
     image:  bharatkareti/dogpals_frontend:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/eureka'
-      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/config'
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/config'
       - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogPals?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
       - JHIPSTER_SLEEP=30
       - JHIPSTER_REGISTRY_PASSWORD=admin
     ports:
       - '8080:8080'
 
-  dogpalstraining:
+  DogPalsTraining:
     image: bharatkareti/dogpals_training:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/eureka'
-      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/config'
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/config'
       - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogpalstraining?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
       - JHIPSTER_SLEEP=60
       - JHIPSTER_REGISTRY_PASSWORD=admin
 
 
-  dogpalsforum:
+  DogPalsForum:
     image:  bharatkareti/dogpals_forum:latest
     environment:
       - _JAVA_OPTIONS=-Xmx512m -Xms256m
       - 'SPRING_PROFILES_ACTIVE=dev,swagger'
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
-      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/eureka'
-      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@172.20.0.2:8761/config'
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@52.74.130.214:8761/config'
       - 'SPRING_DATASOURCE_URL=jdbc:mysql://rds-dogpals.ckeoivf0qlep.ap-southeast-1.rds.amazonaws.com:3306/dogpalsforum?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true'
       - JHIPSTER_SLEEP=50
       - JHIPSTER_REGISTRY_PASSWORD=admin

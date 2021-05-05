@@ -31,6 +31,9 @@
             <column name="post_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="user_id" type="integer">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="comment" columnName="date" columnDataType="datetime"/>
@@ -59,6 +62,8 @@
             <column name="content" type="clob"/>
             <column name="date" type="datetime"/>
             <column name="relate_post_id" type="numeric"/>
+            <column name="post_id" type="numeric"/>
+            <column name="user_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
