@@ -63,7 +63,7 @@ pipeline {
                  //} 
              //}  
          //} 
-		stage('Pulling and jhipster-registry image'){
+		stage('Pulling and Deploying jhipster-registry image'){
 			steps {
 				sh'echo "Starting to deploy docker image.."'
 				sh 'docker pull jhipster/jhipster-registry'
