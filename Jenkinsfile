@@ -63,9 +63,10 @@ pipeline {
                  //} 
              //}  
          //} 
-		stage('Pulling and Deploying jhipster-registry image'){
+		stage('Pulling and Deploying jhipster-registry image and starting NGINX'){
 			steps {
 				sh'echo "Starting to deploy docker image.."'
+				sh'sudo service nginx start'
 				sh 'docker pull jhipster/jhipster-registry'
 				sh 'docker ps -q --filter ancestor=jhipster/jhipster-registry | xargs -r docker stop'
 				sh 'docker run -d -p 8761:8761 jhipster/jhipster-registry'
