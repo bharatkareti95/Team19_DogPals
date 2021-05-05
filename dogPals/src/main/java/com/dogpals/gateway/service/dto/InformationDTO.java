@@ -1,85 +1,85 @@
-package com.dogpals.gateway.service.dto;
+// package com.dogpals.gateway.service.dto;
 
-import java.time.Instant;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import javax.persistence.Lob;
+// import java.time.Instant;
+// import javax.validation.constraints.*;
+// import java.io.Serializable;
+// import javax.persistence.Lob;
 
-/**
- * A DTO for the {@link com.dogpals.gateway.domain.Information} entity.
- */
-public class InformationDTO implements Serializable {
+// /**
+//  * A DTO for the {@link com.dogpals.gateway.domain.Information} entity.
+//  */
+// public class InformationDTO implements Serializable {
     
-    private Long id;
+//     private Long id;
 
-    @NotNull
-    private String title;
-
-    
-    @Lob
-    private String content;
-
-    @NotNull
-    private Instant date;
+//     @NotNull
+//     private String title;
 
     
-    public Long getId() {
-        return id;
-    }
+//     @Lob
+//     private String content;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+//     @NotNull
+//     private Instant date;
 
-    public String getTitle() {
-        return title;
-    }
+    
+//     public Long getId() {
+//         return id;
+//     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+//     public void setId(Long id) {
+//         this.id = id;
+//     }
 
-    public String getContent() {
-        return content;
-    }
+//     public String getTitle() {
+//         return title;
+//     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+//     public void setTitle(String title) {
+//         this.title = title;
+//     }
 
-    public Instant getDate() {
-        return date;
-    }
+//     public String getContent() {
+//         return content;
+//     }
 
-    public void setDate(Instant date) {
-        this.date = date;
-    }
+//     public void setContent(String content) {
+//         this.content = content;
+//     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof InformationDTO)) {
-            return false;
-        }
+//     public Instant getDate() {
+//         return date;
+//     }
 
-        return id != null && id.equals(((InformationDTO) o).id);
-    }
+//     public void setDate(Instant date) {
+//         this.date = date;
+//     }
 
-    @Override
-    public int hashCode() {
-        return 31;
-    }
+//     @Override
+//     public boolean equals(Object o) {
+//         if (this == o) {
+//             return true;
+//         }
+//         if (!(o instanceof InformationDTO)) {
+//             return false;
+//         }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "InformationDTO{" +
-            "id=" + getId() +
-            ", title='" + getTitle() + "'" +
-            ", content='" + getContent() + "'" +
-            ", date='" + getDate() + "'" +
-            "}";
-    }
-}
+//         return id != null && id.equals(((InformationDTO) o).id);
+//     }
+
+//     @Override
+//     public int hashCode() {
+//         return 31;
+//     }
+
+//     // prettier-ignore
+//     @Override
+//     public String toString() {
+//         return "InformationDTO{" +
+//             "id=" + getId() +
+//             ", title='" + getTitle() + "'" +
+//             ", content='" + getContent() + "'" +
+//             ", date='" + getDate() + "'" +
+//             "}";
+//     }
+// }
