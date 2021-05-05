@@ -51,7 +51,7 @@ public class CacheConfiguration {
             createCache(cm, com.dogpals.gateway.domain.User.class.getName());
             createCache(cm, com.dogpals.gateway.domain.Authority.class.getName());
             createCache(cm, com.dogpals.gateway.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.dogpals.gateway.domain.Information.class.getName());
+//             createCache(cm, com.dogpals.gateway.domain.Information.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
