@@ -52,25 +52,48 @@ pipeline {
 		    
      
         //Retrieve image from dockerhub and run container on port 9000 with the same name as the image
-         stage('Deploying via docker-compose') {
-             steps {
-                 dir('docker-compose') {
-                        sh "pwd"
+         //stage('Deploying via docker-compose') {
+             //steps {
+                 //dir('docker-compose') {
+                        //sh "pwd"
                          //System.setProperty("org.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL", "86400");
-		 			sh 'docker-compose down --volumes'
-		 			sh 'docker-compose up -d'
+		 			//sh 'docker-compose down --volumes'
+		 			//sh 'docker-compose up -d'
         //             //sh 'docker-compose -f src/main/docker/app.yml up -d'
-                 } 
-             }  
-         } 
-
-		//stage('Pulling and Deploying front end image'){
-			//steps {
-				//sh'echo "Starting to deploy docker image.."'
-				//sh 'docker pull bharatkareti/dogpals_frontend'
-				//sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_frontend | xargs -r docker stop'
-				//sh 'docker run -d -p 8080:8080 bharatkareti/dogpals_frontend'
-			//}
-		//}
+                 //} 
+             //}  
+         //} 
+		stage('Pulling and Deploying jhipster-registry image'){
+			steps {
+				sh'echo "Starting to deploy docker image.."'
+				sh 'docker pull jhipster/jhipster-registry'
+				sh 'docker ps -q --filter ancestor=jhipster/jhipster-registry | xargs -r docker stop'
+				sh 'docker run -d -p 8761:8761 jhipster/jhipster-registry'
+			}
+		}
+		stage('Pulling and Deploying training image'){
+			steps {
+				sh'echo "Starting to deploy docker image.."'
+				sh 'docker pull bharatkareti/dogpals_training:latest'
+				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_training:latest | xargs -r docker stop'
+				sh 'docker run -d -p 8081:8081 bharatkareti/dogpals_training:latest'
+			}
+		}
+	    	stage('Pulling and Deploying forum image'){
+			steps {
+				sh'echo "Starting to deploy docker image.."'
+				sh 'docker pull bharatkareti/dogpals_forum:latest'
+				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_forum:latest | xargs -r docker stop'
+				sh 'docker run -d -p 8082:8082 bharatkareti/dogpals_forum:latest'
+			}
+		}
+		stage('Pulling and Deploying front end image'){
+			steps {
+				sh'echo "Starting to deploy docker image.."'
+				sh 'docker pull bharatkareti/dogpals_frontend:latest'
+				sh 'docker ps -q --filter ancestor=bharatkareti/dogpals_frontend | xargs -r docker stop'
+				sh 'docker run -d -p 8080:8080 bharatkareti/dogpals_frontend'
+			}
+		}
     }
 }
