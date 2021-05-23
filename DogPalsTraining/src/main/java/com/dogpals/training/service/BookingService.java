@@ -17,6 +17,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.validation.Valid;
+
+import java.util.Set;
+
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -38,6 +42,7 @@ public class BookingService {
         this.bookingRepository = bookingRepository;
         this.bookingMapper = bookingMapper;
         this.bookingSearchRepository = bookingSearchRepository;
+        
     }
 
     /**
@@ -61,12 +66,38 @@ public class BookingService {
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<BookingDTO> findAll(Integer userId) {
+    public List<Booking> findAll(Integer userId) {
         log.debug("Request to get all Bookings for user : {}", userId);
-        return bookingRepository.findByUserId(userId).stream()
-            .map(bookingMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        // List<Booking> bookingList =  new ArrayList<Booking>();
+        // for ( Booking booking : bookingRepository.findByUserId(userId) ){
+        //      //log.debug(booking.getTraining() + "");
+        //      bookingList.add(booking);
+        // }
+        // return bookingList;
+        return bookingRepository.findByUserId(userId).stream().collect(Collectors.toList());
     }
+
+
+    /**
+     * Get all the bookings.
+     * 
+     * @return the list of entities.
+     */
+    // @Transactional(readOnly = true)
+    // public List<BookingDTO> findAll(Integer userId) {
+    //     log.debug("Request to get all Bookings for user : {}", userId);
+    //     return bookingRepository.findByUserId(userId).stream()
+    //         .map(bookingMapper::toDto)
+    //         .collect(Collectors.toCollection(LinkedList::new));
+    // }
+
+
+    @Transactional(readOnly = true)
+    public Set<Booking> findAllBookingByTrainingID(Long trainingId) {
+        log.debug("Request to get all Bookings for user : {}", trainingId);
+        return bookingRepository.findByTrainingId(trainingId).stream().collect(Collectors.toSet());
+    }
+    
 
     @Transactional(readOnly = true)
     public List<BookingDTO> findAllbyTrainingId(Long trainingId) {
@@ -114,4 +145,30 @@ public class BookingService {
             .map(bookingMapper::toDto)
         .collect(Collectors.toList());
     }
+
+    public boolean checkExists(String referenceType, int intValue , BookingDTO bookingDto) {
+        boolean result =  false;
+        log.debug("Request to check if the user has sign up for this Training");
+        if ( "userId".equals(referenceType)){
+            for ( Booking searchedBookingDto : bookingRepository.findByTrainingId(bookingDto.getTrainingId())){
+                if (searchedBookingDto.getUserId() == bookingDto.getUserId() ){
+                    result = true;
+                }
+                else{
+                    result = false;
+                }
+            }
+
+        }
+        return result;
+    }
+
+    // public boolean checkCapacity(BookingDTO bookingDTO) {
+    //     boolean result = false;
+    //     log.debug("Request to check the capcity of Training");
+    //     trainingService
+
+
+    //     return result;
+    // }
 }

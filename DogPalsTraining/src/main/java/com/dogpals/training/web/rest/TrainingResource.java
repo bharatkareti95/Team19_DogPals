@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,9 +24,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link com.dogpals.training.domain.Training}.
@@ -136,18 +133,17 @@ public class TrainingResource {
 
     //To get all Tranings Under particular ADMIN with its booking details
     @GetMapping("/trainings/bookings")
-    public List<Training> getTrainingBookings(Long userId) {
-        log.debug("REST request to get Training : {}", userId);
-        List<Training> training = trainingService.findByUserId(userId.intValue());
-        for ( int i = 0 ; i <training.size() ; i++){
-            log.debug(training.get(i).toString());
-            log.debug("REST get Training ID : " + training.get(i));
+    public Set<Training> getTrainingBookings() {
 
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
         }
-        // for ( int trainingId : training.id){
-        //     log.debug(training.id);
-        // }
-      //  List<BookingDTO> bookingDto = bookingService.findByTrainingID();
+        log.debug("REST create set Training to userId : {}", userId.get());
+
+        Set<Training> training = trainingService.findByAllBookings(userId.get().intValue());
         log.debug("REST requested list of Booking in Training");
         log.debug(training.toString());
         return training;
@@ -162,8 +158,16 @@ public class TrainingResource {
     @DeleteMapping("/trainings/{id}")
     public ResponseEntity<Void> deleteTraining(@PathVariable Long id) {
         log.debug("REST request to delete Training : {}", id);
-        trainingService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        try{ 
+            trainingService.delete(id);
+            return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+            } 
+         catch ( Exception e) {
+             log.debug("FAILED");
+             //return ResponseEntity.noContent().headers(HeaderUtil.createFailureAlert( applicationName, true, ENTITY_NAME,"constrain", e.getMessage())).build();
+             throw new BadRequestAlertException("THERE IS BOOKING EXISTS IN ", ENTITY_NAME, "idnull");
+         }   
+        
     }
 
     /**
@@ -180,5 +184,21 @@ public class TrainingResource {
         Page<TrainingDTO> page = trainingService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+        }
+
+    @GetMapping("/training/userId")
+    public ResponseEntity<TrainingDTO> getUserIdForTrainingModule() {
+        log.debug("REST request to get userId of ");
+        Optional<Long> userId = SecurityUtils.getUserId();
+        if (userId.isPresent()) {
+            log.info("User Id--->{}", userId.get());
+        }else {
+            log.info("No userId present.");
+        }
+        log.debug("REST create set Training to userId : {}", userId.get());
+        TrainingDTO training = new TrainingDTO();
+        Optional<TrainingDTO> trainingDTO  = Optional.ofNullable(training);
+        
+        return ResponseUtil.wrapOrNotFound(trainingDTO);
         }
 }

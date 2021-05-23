@@ -5,6 +5,10 @@ import com.dogpals.training.repository.TrainingRepository;
 import com.dogpals.training.repository.search.TrainingSearchRepository;
 import com.dogpals.training.service.dto.TrainingDTO;
 import com.dogpals.training.service.mapper.TrainingMapper;
+import com.dogpals.training.service.BookingService;
+import com.dogpals.training.web.rest.errors.BadRequestAlertException;
+import org.hibernate.exception.ConstraintViolationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,10 +19,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.stream.Collectors;
+
+
 import java.util.LinkedList;
 import java.util.List;
-
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -35,12 +42,15 @@ public class TrainingService {
 
     private final TrainingMapper trainingMapper;
 
+    private final BookingService bookingService;
+
     private final TrainingSearchRepository trainingSearchRepository;
 
-    public TrainingService(TrainingRepository trainingRepository, TrainingMapper trainingMapper, TrainingSearchRepository trainingSearchRepository) {
+    public TrainingService(TrainingRepository trainingRepository, TrainingMapper trainingMapper, TrainingSearchRepository trainingSearchRepository, BookingService bookingService) {
         this.trainingRepository = trainingRepository;
         this.trainingMapper = trainingMapper;
         this.trainingSearchRepository = trainingSearchRepository;
+        this.bookingService = bookingService;
     }
 
     /**
@@ -64,7 +74,9 @@ public class TrainingService {
     @Transactional(readOnly = true)
     public List<Training> findByUserId(Integer userId) {
         log.debug("Request to get all Training for user : {}", userId);
-        return trainingRepository.findByUserId(userId).stream()
+        List<Training> training = trainingRepository.findByUserId(userId);
+        log.debug(training.toString());
+        return training.stream()
             //.map(trainingMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
@@ -83,6 +95,16 @@ public class TrainingService {
             .map(trainingMapper::toDto);
     }
 
+    @Transactional(readOnly = true)
+    public Set<Training> findByAllBookings(Integer userId){
+        Set<Training> trainingList =  new HashSet<Training>();
+        log.debug("Request to get all Trainings and Bookings");
+        for ( Training training :  trainingRepository.findByUserId(userId)){
+            training.setBookings(bookingService.findAllBookingByTrainingID(training.getId()));
+            trainingList.add(training);
+        }
+        return trainingList;
+    }
 
     /**
      * Get one training by id.
@@ -104,8 +126,13 @@ public class TrainingService {
      */
     public void delete(Long id) {
         log.debug("Request to delete Training : {}", id);
-        trainingRepository.deleteById(id);
+       try{
+        trainingRepository.deleteById(id) ;
         trainingSearchRepository.deleteById(id);
+       }  catch ( Exception e) {
+             log.debug("FAILED");
+             //return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+         }  
     }
 
     /**

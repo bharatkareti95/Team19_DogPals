@@ -4,6 +4,7 @@ import com.dogpals.training.service.BookingService;
 import com.dogpals.training.web.rest.errors.BadRequestAlertException;
 import com.dogpals.training.service.dto.BookingDTO;
 import com.dogpals.training.security.SecurityUtils;
+import com.dogpals.training.domain.Booking;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -18,9 +19,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing {@link com.dogpals.training.domain.Booking}.
@@ -47,14 +45,16 @@ public class BookingResource {
      *
      * @param bookingDTO the bookingDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new bookingDTO, or with status {@code 400 (Bad Request)} if the booking has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     * @throws URISyntaxException
+     * @throws Exception
      */
     @PostMapping("/bookings")
-    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) throws URISyntaxException {
+    public ResponseEntity<BookingDTO> createBooking(@Valid @RequestBody BookingDTO bookingDTO) throws URISyntaxException{
         log.debug("REST request to save Booking : {}", bookingDTO);
         if (bookingDTO.getId() != null) {
             throw new BadRequestAlertException("A new booking cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
 
         Optional<Long> userId = SecurityUtils.getUserId();
         if (userId.isPresent()) {
@@ -64,7 +64,17 @@ public class BookingResource {
         }
         log.debug("REST create set Bookings to userId : {}", userId.get());
         bookingDTO.setUserId(userId.get().intValue());
+        if ( bookingService.checkExists("userId", userId.get().intValue(), bookingDTO )){
+            throw new BadRequestAlertException("A new booking cannot already have an USER ID", ENTITY_NAME, "idexists");
+        }
+        if ( bookingDTO.getUserId() == 60 ){
+            throw new BadRequestAlertException("There is an issue while processing booking", ENTITY_NAME, "problemowner");
+        }
+        // if ( bookingService.checkCapacity(bookingDTO)){
+        //     throw new BadRequestAlertException("The Training Capacity is full" , ENTITY_NAME , "fullcapacity");
+        // }
         BookingDTO result = bookingService.save(bookingDTO);
+
         return ResponseEntity.created(new URI("/api/bookings/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -106,7 +116,7 @@ public class BookingResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of bookings in body.
      */
     @GetMapping("/bookings")
-    public List<BookingDTO> getAllBookings() {
+    public List<Booking> getAllBookings() {
         log.debug("REST request to get all Bookings");
         Optional<Long> userId = SecurityUtils.getUserId();
         if (userId.isPresent()) {
@@ -115,6 +125,7 @@ public class BookingResource {
             log.info("No userId present.");
         }
         return bookingService.findAll(userId.get().intValue());
+        // return ResponseUtil.wrapOrNotFound(booking);
     }
 
     /**

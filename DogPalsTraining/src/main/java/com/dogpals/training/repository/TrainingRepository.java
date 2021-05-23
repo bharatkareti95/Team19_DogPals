@@ -13,4 +13,5 @@ import java.util.List;
 public interface TrainingRepository extends JpaRepository<Training, Long> {
 
     List<Training> findByUserId ( Integer userId );
+    List<Training> findAll ();
 }

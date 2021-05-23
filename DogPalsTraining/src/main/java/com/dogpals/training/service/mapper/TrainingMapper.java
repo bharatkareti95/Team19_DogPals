@@ -15,8 +15,8 @@ public interface TrainingMapper extends EntityMapper<TrainingDTO, Training> {
 
     @Mapping(target = "populars", ignore = true)
     @Mapping(target = "removePopular", ignore = true)
-    @Mapping(target = "bookings", ignore = true)
-    @Mapping(target = "removeBooking", ignore = true)
+    //@Mapping(target = "bookings", ignore = true)
+   // @Mapping(target = "removeBooking", ignore = true)
     Training toEntity(TrainingDTO trainingDTO);
 
     default Training fromId(Long id) {
