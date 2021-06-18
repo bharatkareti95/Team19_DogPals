@@ -653,7 +653,7 @@
                             <image>docker.io/bharatkareti/dogpals</image>
                            <auth>
                                 <username>bharatkareti</username>
-                                <password>Sutd1234!</password>
+                                <password></password>
                             </auth>
                         </to>
                         <container>
